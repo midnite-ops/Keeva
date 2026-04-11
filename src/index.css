@@ -70,8 +70,9 @@
 }
 
 @layer base {
-  
-
+  * {
+    @apply border-(--var(--border));
+  }
   body {
     @apply bg-(--var(--background)) text-(--var(--foreground)) antialiased;
     font-family: var(--font-sans);

@@ -59,7 +59,7 @@ const Waitlist = () => {
         </div>
 
         {/* Content side */}
-        <div className="flex flex-col justify-center px-8 md:px-16 lg:px-20 py-20 lg:py-0">
+        <div className="flex flex-col justify-center px-5 md:px-16 lg:px-20 py-20 lg:py-0">
           <div className="max-w-md">
             <p className="text-xs tracking-[0.4em] text-muted-foreground uppercase font-sans mb-6 animate-fade-up animate-delay-200">
               Where Design Meets Style
@@ -88,7 +88,7 @@ const Waitlist = () => {
                   />
                   <button
                     type="submit"
-                    className="px-6 py-3.5 text-xs tracking-[0.2em] uppercase font-sans bg-black text-white hover:bg-foreground/90 cursor-pointer transition-colors whitespace-nowrap"
+                    className="px-2 md:px-6 py-3.5 text-[10px] md:text-xs tracking-[0.2em] uppercase font-sans bg-black text-white hover:bg-foreground/90 cursor-pointer transition-colors  w-full"
                   >
                     Get Early Access
                   </button>
@@ -140,7 +140,7 @@ const Waitlist = () => {
         </section>
 
       {/* Footer line */}
-      <footer className="fixed bottom-0 left-0 right-0 flex items-center justify-between px-6 md:px-12 py-4">
+      <footer className="fixed bg-white bottom-0 left-0 right-0 flex items-center justify-between px-6 md:px-12 py-4">
         <span className="text-[10px] tracking-[0.2em] text-muted-foreground uppercase font-sans">
           © 2026 Keeva
         </span>
