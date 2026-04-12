@@ -15,7 +15,7 @@ server.use(express.urlencoded({ extended: true }));
 
 server.use("/api", appRoutes);
 
-server.listen(async () => {
+server.listen(port, async () => {
     await DB();
     logger.info(`server running on port - ${port}`);
 });
