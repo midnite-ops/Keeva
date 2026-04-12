@@ -1,6 +1,7 @@
 import { useState } from "react";
 import heroImage from "../assets/hero-fashion.jpg";
 import { Shirt, Sparkles, ShoppingBag } from "lucide-react";
+import { apiRequest } from "../lib/apiRequest";
 
 const HowItWorksCard = ({
   icon: Icon,
@@ -29,10 +30,20 @@ const Waitlist = () => {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email.trim()) {
+    try {
+      const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+      if (!isValidEmail) {
+        alert("Please enter a valid email address.");
+        return;
+      }
+
+      await apiRequest({ method: "POST", endpoint: "/add-to-waitlist", data: { email } });
+
       setSubmitted(true);
+    } catch (error) {
+      console.error(error);
     }
   };
 
