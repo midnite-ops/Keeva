@@ -39,7 +39,7 @@ const Waitlist = () => {
         return;
       }
 
-      await apiRequest({ method: "POST", endpoint: "/add-to-waitlist", data: { email } });
+      await apiRequest({ method: "POST", endpoint: "add-to-waitlist", data: { email } });
 
       setSubmitted(true);
     } catch (error) {
