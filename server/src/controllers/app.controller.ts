@@ -27,3 +27,11 @@ export const addToWaitlist = async (req: GlobalRequest, res: GlobalResponse) => 
   }
 }
 
+export const keepOpen = async (req: GlobalRequest, res: GlobalResponse) => {
+  try {
+    res.status(200).json({ message: "server is up and running" });
+  } catch (error) {
+    logger.error(error);
+    res.status(500).json({ error: "error keeping server open" });
+  }
+};
