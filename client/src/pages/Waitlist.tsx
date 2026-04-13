@@ -2,6 +2,7 @@ import { useState } from "react";
 import heroImage from "../assets/hero-fashion.jpg";
 import { Shirt, Sparkles, ShoppingBag } from "lucide-react";
 import { apiRequest } from "../lib/apiRequest";
+import { ClipLoader } from "react-spinners";
 
 const HowItWorksCard = ({
   icon: Icon,
@@ -29,6 +30,8 @@ const HowItWorksCard = ({
 const Waitlist = () => {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,12 +41,18 @@ const Waitlist = () => {
         alert("Please enter a valid email address.");
         return;
       }
+      setLoading(true);
+      
 
       await apiRequest({ method: "POST", endpoint: "add-to-waitlist", data: { email } });
-
       setSubmitted(true);
-    } catch (error) {
-      console.error(error);
+      
+    } catch (error: any) {
+        setSubmitted(true);
+        setMessage(error?.response?.data?.error || "Something went wrong, please try again.");
+        console.log('error')
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -95,13 +104,14 @@ const Waitlist = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Your email address"
-                    className="flex-1 px-4 py-3.5 text-sm font-sans bg-transparent text-foreground placeholder:text-muted-foreground focus:outline-none"
+                    className="flex-1 px-4 py-3.5 text-sm font-sans bg-transparent text-foreground placeholder:text-muted-foreground focus:outline-none "
                   />
                   <button
                     type="submit"
-                    className="px-2 md:px-6 py-3.5 text-[10px] md:text-xs tracking-[0.2em] uppercase font-sans bg-black text-white hover:bg-foreground/90 cursor-pointer transition-colors  w-full"
+                    className="px-2 md:px-6 py-3.5 text-[10px] md:text-xs tracking-[0.2em] uppercase font-sans bg-black text-white hover:bg-foreground/90 cursor-pointer transition-colors flex-1"
+                    disabled={loading}
                   >
-                    Get Early Access
+                    {loading ? <ClipLoader size={15} color="white" /> : "Get Early Access"}
                   </button>
                 </div>
                 <p className="text-[11px] text-muted-foreground mt-3 font-sans">
@@ -110,10 +120,17 @@ const Waitlist = () => {
               </form>
             ) : (
               <div className="animate-fade-up border border-border p-6">
-                <p className="font-serif text-lg text-foreground mb-1">You're on the list.</p>
-                <p className="text-sm text-muted-foreground font-sans">
-                  We'll reach out when it's your turn.
-                </p>
+                {message ? (
+                  <p className="text-lg font-serif">{message}</p>
+                ) : (
+                  <>
+                    <p className="font-serif text-lg text-foreground mb-1">You're on the list.</p>
+                    <p className="text-sm text-muted-foreground font-sans">
+                      Stay tuned for updates and thank you for your interest in Keeva! We can't wait to share our vision with you.
+                    </p>
+                  </>
+                )}
+                
               </div>
             )}
           </div>

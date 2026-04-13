@@ -12,7 +12,7 @@ export const addToWaitlist = async (req: GlobalRequest, res: GlobalResponse) => 
 
     const emailExist = await waitlist.findOne({ email });
     if (emailExist) {
-      res.status(400).json({ error: "email already on waitlist" });
+      res.status(409).json({ error: "email already on waitlist" });
       return;
     }
 
