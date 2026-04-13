@@ -12,9 +12,7 @@ export const addToWaitlist = async (req: GlobalRequest, res: GlobalResponse) => 
 
     const emailExist = await waitlist.findOne({ email });
     if (emailExist) {
-      res.status(409).json({
-         error: "You're already on the waitlist. Stay tuned for updates and thank you for your interest in Keeva! We can't wait to share our vision with you." 
-        });
+      res.status(409).json({error: "You're already on the waitlist. Stay tuned for updates and thank you for your interest in Keeva! We can't wait to share our vision with you." });
       return;
     }
 
