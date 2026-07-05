@@ -1,7 +1,6 @@
 
 
 const Footer = () => {
-    const collections = ['New Arrivals', 'Men']
   return (
     <footer className='bg-bgBlack text-white pt-20 pb-10 '>
         <hr className='text-subtitleText/50 w-full '/>
