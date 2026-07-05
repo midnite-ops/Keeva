@@ -83,10 +83,10 @@
     @apply font-sans
   }
   h1{
-    @apply font-serif
+    @apply font-serif font-extralight text-4xl lg:text-6xl
   }
   body {
-    @apply bg-(--var(--background)) text-(--var(--foreground)) antialiased pb-1000;
+    @apply bg-(--var(--background)) text-(--var(--foreground)) antialiased ;
     font-family: var(--font-sans);
   }
 }

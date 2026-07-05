@@ -21,7 +21,7 @@ const OutfitCard = ({img,title,subtitle, creator}: {img:string, title:string, su
                 <button className='bg-actionsColor py-2 px-4 rounded-full text-white font-bold text-xs'>Buy full Look</button>
             </div>
             
-            <h1 className='font-medium mb-2'>{title}</h1>
+            <h2 className='font-medium mb-2'>{title}</h2>
             <p className='text-sm '>
                 {subtitle}
                 <span className='ml-2 text-subtitleText text-xs'> Read more</span>

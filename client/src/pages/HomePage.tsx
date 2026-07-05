@@ -2,10 +2,27 @@ import Navbar from "../components/Navbar"
 import HowItWorksCard from "../components/HowItWorksCard"
 import OutfitCard from "../components/OutfitCard"
 import fashionOutfit from "../assets/fashion.jpg"
-import { useState } from "react"
+import { Link } from "react-router"
+import Footer from "../components/Footer"
 
 const HomePage = () => {
-    const [readMore, setReadMore] = useState(false)
+    const earnings = [
+        {
+            title: 'Designer',
+            earning: "85%",
+            description: "Receive the largest share of every successful sale because you own the products that make every outfit possible."
+        },
+        {
+            title: 'Creator',
+            earning: "10%",
+            description: "Earn every time someone purchases an outfit you styled, turning your creativity and influence into real income."
+        },
+        {
+            title: 'Commission',
+            earning: "5%",
+            description: "Keeva's commission keeps the platform running, supports secure payments, and helps grow the creator and vendor ecosystem."
+        }
+    ]
     const outfits = [
         {
             title: "Summer Outfit",
@@ -69,6 +86,32 @@ const HomePage = () => {
                 </div>
             </div>
         </section>
+
+
+        <section className="bg-bgBlack py-10 text-white">
+            <div className="heading">
+                <h1 className="font-extralight text-4xl lg:text-6xl mb-2 text-center">Transparent Earnings</h1>
+                <p>Every sale is split fairly. No hidden fees.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 space mt-15">
+                    {earnings.map((item,index) => (
+                        <div key={index} className={`flex flex-col gap-3 ${index === 1 ? 'bg-actionsColor text-white' : index === 2 ? 'bg-[#2A2520] text-white' : 'bg-white text-black'} rounded-xl px-5 py-3`}>
+                            <h1 className="text-5xl font-semibold font-sans">{item.earning}</h1>
+                            <p className="font-semibold">{item.title}</p>
+                            <p className="text-sm">{item.description}</p>
+                        </div>
+                    ))}
+                </div>
+        </section>
+
+        <section className="my-40">
+            <div className="heading">
+                <h1 className="font-extralight text-4xl lg:text-6xl">Ready to Earn from Style?</h1>
+                <p>Join Keeva to discover, sell, and earn through fashion.</p>
+                 <Link to={'/waitlist'} className="px-5 py-3  text-sm font-medium text-white bg-actionsColor rounded-full">Join Waitlist</Link>
+            </div>
+        </section>
+        <Footer />
     </main>
   )
 }
