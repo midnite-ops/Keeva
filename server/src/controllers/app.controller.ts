@@ -33,5 +33,5 @@ export const keepOpen = async (req: GlobalRequest, res: GlobalResponse) => {
   } catch (error) {
     logger.error(error);
     res.status(500).json({ error: "error keeping server open" });
-  }
+  } 
 };

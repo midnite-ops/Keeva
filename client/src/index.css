@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+@theme{
+  --color-actionsColor: #9E5333;
+  --color-subtitleText: #6E6A60;
+  --color-bgBlack: #1A1815;
+  --color-bgWhite: #F5F5F5;
+}
 
 @layer base {
   :root {
@@ -73,9 +79,24 @@
   * {
     @apply border-(--var(--border));
   }
+  p{
+    @apply font-sans
+  }
+  h1{
+    @apply font-serif
+  }
   body {
-    @apply bg-(--var(--background)) text-(--var(--foreground)) antialiased;
+    @apply bg-(--var(--background)) text-(--var(--foreground)) antialiased pb-1000;
     font-family: var(--font-sans);
+  }
+}
+
+@layer components{
+  .space{
+    @apply px-5 md:px-10 lg:px-20
+  }
+  .heading{
+    @apply flex flex-col gap-2 items-center justify-center
   }
 }
 

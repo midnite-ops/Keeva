@@ -5,12 +5,14 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 // import { TooltipProvider } from "@/components/ui/tooltip";
 import Waitlist from "./pages/Waitlist.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import HomePage from "./pages/HomePage.tsx";
 
 
 const App = () => (
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<Waitlist />} />
+      <Route path="/waitlist" element={<Waitlist />} />
+      <Route path="/" element={<HomePage />} />
       {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
       <Route path="*" element={<NotFound />} />
     </Routes>

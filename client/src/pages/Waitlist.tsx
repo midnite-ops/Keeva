@@ -3,36 +3,14 @@ import heroImage from "../assets/hero-fashion.jpg";
 import { Shirt, Sparkles, ShoppingBag } from "lucide-react";
 import { apiRequest } from "../lib/apiRequest";
 import { ClipLoader } from "react-spinners";
-
-const HowItWorksCard = ({
-  icon: Icon,
-  label,
-  title,
-  description,
-  delay,
-}: {
-  icon: React.ElementType;
-  label: string;
-  title: string;
-  description: string;
-  delay: string;
-}) => (
-  <div className={`animate-fade-up ${delay}`}>
-    <div className="flex items-center gap-2 mb-3">
-      <Icon className="w-4 h-4 text-muted-foreground" />
-      <span className="text-[10px] tracking-[0.3em] text-muted-foreground uppercase font-sans">{label}</span>
-    </div>
-    <h3 className="font-serif text-lg text-foreground mb-2">{title}</h3>
-    <p className="text-sm text-muted-foreground font-sans leading-relaxed">{description}</p>
-  </div>
-);
+import HowItWorksCard from "../components/HowItWorksCard";
 
 const Waitlist = () => {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
-
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -142,29 +120,7 @@ const Waitlist = () => {
             <p className="text-xs tracking-[0.4em] text-muted-foreground uppercase font-sans mb-16 animate-fade-up">
             How It Works
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12 max-w-5xl">
-            <HowItWorksCard
-                icon={Shirt}
-                label="Designers"
-                title="Upload your pieces"
-                description="Fashion designers showcase their garments on the platform — from independent labels to emerging talent."
-                delay="animate-delay-200"
-            />
-            <HowItWorksCard
-                icon={Sparkles}
-                label="Creators"
-                title="Style complete looks"
-                description="Content creators and stylists curate outfits from available pieces, building shoppable looks their audience loves."
-                delay="animate-delay-400"
-            />
-            <HowItWorksCard
-                icon={ShoppingBag}
-                label="Customers"
-                title="Shop styled outfits"
-                description="Discover and buy complete outfits styled by creators you follow — no more guessing what goes together."
-                delay="animate-delay-600"
-            />
-            </div>
+            <HowItWorksCard />
         </section>
 
       {/* Footer line */}
