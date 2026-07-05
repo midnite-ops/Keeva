@@ -1,6 +1,5 @@
 import { useState } from "react";
 import heroImage from "../assets/hero-fashion.jpg";
-import { Shirt, Sparkles, ShoppingBag } from "lucide-react";
 import { apiRequest } from "../lib/apiRequest";
 import { ClipLoader } from "react-spinners";
 import HowItWorksCard from "../components/HowItWorksCard";
