@@ -79,6 +79,9 @@
   * {
     @apply border-(--var(--border));
   }
+  button{
+    @apply cursor-pointer
+  }
   p{
     @apply font-sans
   }
