@@ -21,7 +21,7 @@ const SideBar = () => {
     <section className='fixed left-0 top-0 bottom-0 border-r border-subtitleText/25'>
         <ul>
             {sidebarLinks.map((item) => (
-               <Link to={item.link} className={`${activeLink === item.title ? 'text-white' : 'text-subtitleText'} cursor-pointer`}>{item.title}</Link>
+               <Link to={item.link} className={`${activeLink === item.title ? 'text-white' : 'text-subtitleText'} cursor-pointer`} onClick={() => setActiveLink(item.title)}>{item.title}</Link>
             ))}
         </ul>
     </section>
