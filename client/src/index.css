@@ -89,7 +89,7 @@
     @apply font-serif font-extralight text-4xl lg:text-6xl
   }
   body {
-    @apply bg-(--var(--background)) text-(--var(--foreground)) antialiased ;
+    @apply bg-bgBlack text-(--var(--foreground)) antialiased ;
     font-family: var(--font-sans);
   }
 }
@@ -101,6 +101,7 @@
   .heading{
     @apply flex flex-col gap-2 items-center justify-center
   }
+  
 }
 
 @layer utilities {
@@ -151,3 +152,7 @@
   opacity: 0;
 }
 
+.no-scrollbar{
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

@@ -23,6 +23,23 @@ const SideBar = () => {
             link: 'app/home'
         },
         {
+            title: "Explore",
+            link: 'app/explore'
+        },
+        {
+            title: "Search",
+            link: 'app/search'
+        },
+        
+        {
+            title: 'Notifications',
+            link: 'app/notifications'
+        },
+        {
+            title: 'Add Post',
+            link: 'app/post'
+        },
+        {
             title: 'Saved',
             link: 'app/saved'
         },
@@ -32,7 +49,7 @@ const SideBar = () => {
         }
     ]
   return (
-    <section className='fixed left-0 flex flex-col top-0 bottom-0 border-r border-subtitleText/25 w-50 pb-10  px-5 pt-30'>
+    <section className=' flex flex-col border-r border-subtitleText/25 w-50 pb-10 px-5 pt-10'>
         <ul className="flex flex-col gap-2 font-semibold border-b border-subtitleText/25 pb-10 mb-5">
             {sidebarLinks.map((item) => (
                <Link to={item.link} className={`${activeLink === item.title ? 'text-white' : 'text-subtitleText'} cursor-pointer`} onClick={() => setActiveLink(item.title)}>{item.title}</Link>

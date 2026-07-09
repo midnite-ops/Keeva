@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Waitlist from "./pages/marketing/Waitlist.tsx";
 import NotFound from "./pages/marketing/NotFound.tsx";
 import AppFeed from "./pages/app/appHome.tsx";
+import AppLayout from "./layout/AppLayout.tsx";
 // import HomePage from "./pages/HomePage.tsx";
 
 const App = () => (
@@ -14,8 +15,12 @@ const App = () => (
       <Route path="/" element={<Waitlist />} />
       {/* <Route path="/" element={<HomePage />} /> */}
       {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-      <Route path="/app/feed" element= {<AppFeed />}/>
+      
       <Route path="*" element={<NotFound />} />
+
+      <Route element={<AppLayout />}>
+        <Route path="/app/feed" element= {<AppFeed />}/>
+      </Route>
     </Routes>
   </BrowserRouter>
 );
