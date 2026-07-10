@@ -10,13 +10,13 @@ const AppFeed = () => {
     <main className=" text-white h-screen overflow-y-hidden pt-4 px-4 ">
 
       <section className=" h-screen flex  gap-6 w-full ">
-        <div className="relative h-full flex-1">
+        <div className="relative overflow-hidden h-full flex-1 flex md:block justify-center">
 
           <div className="absolute top-0">
-            <ul className="flex gap-5 items-center w-full  overflow-x-auto no-scrollbar">
+            <ul className="flex gap-4 items-center w-full  overflow-x-auto no-scrollbar">
               {feedFilter.map((item) => (
                 <li
-                  className={`${item === currentFeed ? "border-b border-white" : ""} text-sm font-bold tracking-wide pb-1 cursor-pointer`}
+                  className={`${item === currentFeed ? "border-b border-foreground" : ""} text-sm font-bold tracking-wide pb-1 cursor-pointer`}
                   onClick={() => setCurrentFeed(item)}
                 >
                   {item}
@@ -25,7 +25,7 @@ const AppFeed = () => {
             </ul>
           </div>
 
-          <div className="overflow-y-scroll w-full flex gap-15 flex-col no-scrollbar h-11/12 pb-40  mt-10 ">
+          <div className="overflow-y-scroll w-full flex  gap-15 flex-col no-scrollbar h-11/12 pb-70 md:pb-40 mt-12  md:mt-10">
             {[1,2,34,5].map(() => (
               <OutfitCard title="Street Chic" subtitle="The best outift to wear this summer to impress your friends and family." img={fashionOutfit} creator="@stylebyrio" />
             ))}

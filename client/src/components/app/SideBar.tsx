@@ -49,10 +49,10 @@ const SideBar = () => {
         }
     ]
   return (
-    <section className=' flex flex-col border-r border-subtitleText/25 w-50 pb-10 px-5 pt-10'>
+    <section className='hidden  md:flex flex-col border-r border-subtitleText/25 w-50 pb-10 px-5 pt-10 '>
         <ul className="flex flex-col gap-2 font-semibold border-b border-subtitleText/25 pb-10 mb-5">
             {sidebarLinks.map((item) => (
-               <Link to={item.link} className={`${activeLink === item.title ? 'text-white' : 'text-subtitleText'} cursor-pointer`} onClick={() => setActiveLink(item.title)}>{item.title}</Link>
+               <Link to={item.link} className={`${activeLink === item.title ? 'text-foreground' : 'text-subtitleText'} cursor-pointer`} onClick={() => setActiveLink(item.title)}>{item.title}</Link>
             ))}
         </ul>
 

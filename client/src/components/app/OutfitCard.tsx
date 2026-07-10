@@ -1,4 +1,4 @@
-import { EllipsisIcon, HandshakeIcon, Heart, MessageCircle, Send, SeparatorVertical, Share } from 'lucide-react'
+import { BookmarkIcon, EllipsisIcon, HandshakeIcon, Heart, MessageCircle, Send, SeparatorVertical, Share } from 'lucide-react'
 import { useState } from 'react'
 
 const OutfitCard = ({img,title,subtitle, creator}: {img:string, title:string, subtitle:string, creator: string}) => {
@@ -8,7 +8,7 @@ const OutfitCard = ({img,title,subtitle, creator}: {img:string, title:string, su
         comments: 0
     })
   return (
-    <div className='pb-4 h-130 w-120 rounded-lg flex gap-5'>
+    <div className='pb-4 h-130 w-full! md:w-120 rounded-lg flex gap-5'>
         
         <div className='h-full relative'>
             <div className='absolute text-xs font-bold rounded-full   top-0 w-full flex py-2 px-4 justify-between items-center text-actionsColor'>
@@ -39,14 +39,17 @@ const OutfitCard = ({img,title,subtitle, creator}: {img:string, title:string, su
                 </p>
             </div>
         </div>
-        <div className='flex flex-col items-center gap-5 pt-4' >
+        <div className='hidden md:flex flex-col items-center gap-5 pt-4' >
             <div>
                 <Heart size={25} />
                 <p className='text-sm font-bold '>{post.likes || ""}</p>
             </div>
+            <div>
+                <BookmarkIcon size={25} />
+                <p className='text-sm font-bold '>{post.likes || ""}</p>
+            </div>
             
             <Send size={25} />
-            <HandshakeIcon size={25} />
         </div>
         
     </div>
