@@ -14,7 +14,7 @@ const AppLayout = () => {
         <SideBar />
         <BottomNav />
 
-        <main className="flex-1  md:px-6 lg:pl-30 lg:pr-8 overflow-hidden">
+        <main className="flex-1  md:px-6 lg:pl-20 xl:pl-30 lg:pr-8 overflow-hidden">
           <Outlet />
         </main>
 
