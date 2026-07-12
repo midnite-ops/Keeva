@@ -10,6 +10,7 @@ import {
   ChevronDown,
   ChevronUp,
 } from "lucide-react";
+import { formatCount } from "../../utils";
 
 const outfit = {
   id: "1",
@@ -208,9 +209,7 @@ export default function App() {
                   minWidth: "2.5rem",
                 }}
               >
-                {likeCount >= 1000
-                  ? `${(likeCount / 1000).toFixed(1)}k`
-                  : likeCount}
+                {`${formatCount(likeCount)}k`}
               </span>
             </button>
 

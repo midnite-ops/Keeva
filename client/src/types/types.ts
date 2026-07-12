@@ -1,30 +1,32 @@
 export interface Users {
-    id: number,
+    id: string,
     name: string,
     username: string,
     profilePic: string,
     dateOfBirth: string,
     location: string
     role: 'creator' | 'customer' | 'vendor',
+    followers?: number
 
 }
 
 export interface Outfits{
-    id: number,
+    id: string,
     creatorId: number
     image: string[],
     caption: string;
-    taggedProducts: object[],
+    taggedProducts: string[],
     likes: number,
     time: string
 }
 
 export interface Products {
-    id: number;
+    id: string;
     vendorId: number;
     caption: string;
     description: string;
     category: string;
+    name: string
     price: number;
     images: string[];
     stock: number;
