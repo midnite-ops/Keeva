@@ -1,17 +1,13 @@
 @import "tailwindcss";
 
-@theme{
-  --color-actionsColor: #9E5333;
-  --color-subtitleText: #6E6A60;
-  --color-bgBlack: #1A1815;
-  --color-bgWhite: #F5F5F5;
-}
-
 @layer base {
   :root {
-    --background: 40 33% 97%;
-    --foreground: 30 10% 12%;
-
+    /*For light mode */
+    /* --background: 30 10% 10%; */
+    /* --foreground: 40 20% 92%; */
+    --background: 0 0% 96%;
+    --foreground: 30 10% 12;
+    
     --card: 40 25% 95%;
     --card-foreground: 30 10% 12%;
 
@@ -52,8 +48,8 @@
     --font-sans: 'Inter', system-ui, sans-serif;
   }
 
-  .dark {
-    --background: 30 10% 8%;
+  /* .dark {
+    --background: 30 10% 10%;
     --foreground: 40 20% 92%;
     --card: 30 10% 10%;
     --card-foreground: 40 20% 92%;
@@ -72,12 +68,26 @@
     --border: 30 8% 20%;
     --input: 30 8% 20%;
     --ring: 40 20% 92%;
-  }
+  } */
+}
+
+@theme{
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card-foreground))
+  --color-primary: hsl(var(--primary));
+  --color-actionsColor: #9E5333;
+  --color-subtitleText: #6E6A60;
+  --color-bgBlack: #1A1815;
+  --color-bgWhite: #F5F5F5;
 }
 
 @layer base {
   * {
     @apply border-(--var(--border));
+  }
+  button{
+    @apply cursor-pointer
   }
   p{
     @apply font-sans
@@ -86,7 +96,8 @@
     @apply font-serif font-extralight text-4xl lg:text-6xl
   }
   body {
-    @apply bg-(--var(--background)) text-(--var(--foreground)) antialiased ;
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
     font-family: var(--font-sans);
   }
 }
@@ -98,6 +109,7 @@
   .heading{
     @apply flex flex-col gap-2 items-center justify-center
   }
+  
 }
 
 @layer utilities {
@@ -148,3 +160,7 @@
   opacity: 0;
 }
 
+.no-scrollbar{
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
