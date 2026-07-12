@@ -1,5 +1,7 @@
 import { useState } from "react"
 import { Link } from "react-router"
+import { ShoppingBag, Home, Search, Bell, PlusSquare, Bookmark  } from "lucide-react"
+
 
 const SideBar = () => {
     const [activeLink, setActiveLink] = useState('Home')
@@ -20,39 +22,44 @@ const SideBar = () => {
     const sidebarLinks = [
         {
             title: 'Home',
-            link: 'app/home'
+            link: 'app/home',
+            icon: Home
         },
         {
             title: "Explore",
-            link: 'app/explore'
-        },
-        {
-            title: "Search",
-            link: 'app/search'
+            link: 'app/explore',
+            icon: Search
         },
         
         {
             title: 'Notifications',
-            link: 'app/notifications'
+            link: 'app/notifications',
+            icon: Bell
         },
         {
             title: 'Add Post',
-            link: 'app/post'
+            link: 'app/post',
+            icon: PlusSquare
         },
         {
             title: 'Saved',
-            link: 'app/saved'
+            link: 'app/saved',
+            icon: Bookmark
         },
         {
             title: 'Cart',
-            link: 'app/cart'
+            link: 'app/cart',
+            icon: ShoppingBag
         }
     ]
   return (
     <section className='hidden  md:flex flex-col border-r border-subtitleText/25 w-50 pb-10 px-5 pt-10 '>
         <ul className="flex flex-col gap-2 font-semibold border-b border-subtitleText/25 pb-10 mb-5">
             {sidebarLinks.map((item) => (
-               <Link to={item.link} className={`${activeLink === item.title ? 'text-foreground' : 'text-subtitleText'} cursor-pointer`} onClick={() => setActiveLink(item.title)}>{item.title}</Link>
+               <Link to={item.link} className={`${activeLink === item.title ? 'bg-bgBlack text-background' : 'text-subtitleText'} cursor-pointer flex items-center gap-2 py-2 px-4 rounded-lg`} onClick={() => setActiveLink(item.title)}>
+                    <item.icon /> 
+                    {item.title}
+                </Link>
             ))}
         </ul>
 

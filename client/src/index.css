@@ -78,8 +78,10 @@
   --color-primary: hsl(var(--primary));
   --color-actionsColor: #9E5333;
   --color-subtitleText: #6E6A60;
-  --color-bgBlack: #1A1815;
+  --color-bgBlack: #111;
   --color-bgWhite: #F5F5F5;
+  --color-success: #E8F5EE;
+  --color-successText: #2E7D52;
 }
 
 @layer base {
