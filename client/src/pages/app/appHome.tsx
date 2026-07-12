@@ -1,8 +1,11 @@
 import { useState } from "react";
 import OutfitCard from "../../components/app/OutfitCard";
+import { useAuth } from "../../context/AuthContext";
 
 
 const AppFeed = () => {
+  const {signupData} = useAuth()
+  console.log(signupData)
   const feedFilter = ["For You", "Trending", "Following", "New", "Brands"];
   const [currentFeed, setCurrentFeed] = useState("For You");
   return (
