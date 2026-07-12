@@ -3,11 +3,11 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 // import { Toaster as Sonner } from "@/components/ui/sonner";
 // import { Toaster } from "@/components/ui/toaster";
 // import { TooltipProvider } from "@/components/ui/tooltip";
-import Waitlist from "./pages/marketing/Waitlist.tsx";
-import NotFound from "./pages/marketing/NotFound.tsx";
-import AppFeed from "./pages/app/appHome.tsx";
-import AppLayout from "./layout/AppLayout.tsx";
+import Waitlist from "./pages/Waitlist.tsx";
+import NotFound from "./pages/NotFound.tsx";
 // import HomePage from "./pages/HomePage.tsx";
+
+
 
 const App = () => (
   <BrowserRouter>
@@ -15,13 +15,9 @@ const App = () => (
       <Route path="/" element={<Waitlist />} />
       {/* <Route path="/" element={<HomePage />} /> */}
       {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-      
       <Route path="*" element={<NotFound />} />
-
-      <Route element={<AppLayout />}>
-        <Route path="/app/feed" element= {<AppFeed />}/>
-      </Route>
     </Routes>
+    
   </BrowserRouter>
 );
 
