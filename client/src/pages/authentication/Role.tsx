@@ -33,7 +33,6 @@ const roles = [
 
 const Role = () => {
     const [done, setDone] = useState(false);
-    const [toHome, setToHome] = useState(false)
     const {setSignupData, signupData} = useAuth()
     const role = roles.find((r) => r.id === signupData.role)!;
     const Icon = role.icon;
