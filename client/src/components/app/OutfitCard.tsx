@@ -10,6 +10,7 @@ import {
   ChevronDown,
   ChevronUp,
 } from "lucide-react";
+import { formatCount } from "../../utils";
 
 const outfit = {
   id: "1",
@@ -57,7 +58,7 @@ export default function App() {
     <div className="h-fit flex items-center justify-center xl:justify-start md:p-4">
       {/* Card */}
       <div
-        className="bg-white rounded-2xl overflow-hidden shadow-xl"
+        className="bg-white rounded-2xl overflow-hidden "
         style={{
           width: "min(420px, 100%)",
           display: "flex",
@@ -208,9 +209,7 @@ export default function App() {
                   minWidth: "2.5rem",
                 }}
               >
-                {likeCount >= 1000
-                  ? `${(likeCount / 1000).toFixed(1)}k`
-                  : likeCount}
+                {`${formatCount(likeCount)}k`}
               </span>
             </button>
 
@@ -255,7 +254,7 @@ export default function App() {
         </div>
 
         {/* Buy the Full Look bar */}
-        <div className="mx-4 mb-4 mt-1 flex items-center justify-between rounded-2xl px-4 py-3 gap-3 bg-actionsColor">
+        <div className="mx-4 mb-4 mt-1 flex items-center justify-between rounded-2xl px-4 py-3 gap-3 bg-bgBlack">
           <div>
             <p
               className="text-xs font-medium"
@@ -269,7 +268,7 @@ export default function App() {
           </div>
           <button
             onClick={() => setBought((b) => !b)}
-            className={`flex items-center gap-2 text-sm font-semibold px-4 py-2 rounded-xl transition-all duration-200 active:scale-95 shrink-0 ${bought ? "bg-[#F5EDE6] text-foreground" : "bg-background text-foreground"}`}
+            className={`flex items-center gap-2 text-sm font-semibold px-4 py-2 rounded-xl transition-all duration-200 active:scale-95 shrink-0 ${bought ? "bg-success text-successText" : "bg-background text-foreground"}`}
           >
             <ShoppingBag size={15} />
             {bought ? "In Cart ✓" : "Buy the Look"}

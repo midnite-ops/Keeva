@@ -39,7 +39,7 @@ const Role = () => {
     const navigate = useNavigate()
     const complete = () => {
       setTimeout(() => {
-        navigate('/app/feed')
+        navigate('/app/home')
       }, 5000)
     }
 

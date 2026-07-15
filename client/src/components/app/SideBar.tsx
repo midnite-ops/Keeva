@@ -1,70 +1,81 @@
 import { useState } from "react"
 import { Link } from "react-router"
+import { ShoppingBag, Home, Search, Bell, PlusSquare, Bookmark  } from "lucide-react"
+import users from '../../data/users';
+import { formatCount } from "../../utils";
+import { useAuth } from "../../context/AuthContext";
+
 
 const SideBar = () => {
     const [activeLink, setActiveLink] = useState('Home')
-    const creators = [
-        {
-            name: 'Jesse Oyims',
-            userName: '@midniteOps'
-        },
-        {
-            name: 'Jesse Oyims',
-            userName: '@midniteOps'
-        },
-        {
-            name: 'Jesse Oyims',
-            userName: '@midniteOps'
-        }
-    ]
+    const creators = users.filter((item) => item.role === 'creator')
+    const {signupData} = useAuth()
     const sidebarLinks = [
         {
             title: 'Home',
-            link: 'app/home'
+            link: 'app/home',
+            icon: Home
         },
         {
             title: "Explore",
-            link: 'app/explore'
-        },
-        {
-            title: "Search",
-            link: 'app/search'
+            link: 'app/explore',
+            icon: Search
         },
         
         {
             title: 'Notifications',
-            link: 'app/notifications'
+            link: 'app/notifications',
+            icon: Bell
         },
         {
             title: 'Add Post',
-            link: 'app/post'
+            link: 'app/post',
+            icon: PlusSquare
         },
         {
             title: 'Saved',
-            link: 'app/saved'
+            link: 'app/saved',
+            icon: Bookmark
         },
         {
             title: 'Cart',
-            link: 'app/cart'
+            link: 'app/cart',
+            icon: ShoppingBag
         }
     ]
   return (
     <section className='hidden  md:flex flex-col border-r border-subtitleText/25 w-50 pb-10 px-5 pt-10 '>
-        <ul className="flex flex-col gap-2 font-semibold border-b border-subtitleText/25 pb-10 mb-5">
-            {sidebarLinks.map((item) => (
-               <Link to={item.link} className={`${activeLink === item.title ? 'text-foreground' : 'text-subtitleText'} cursor-pointer`} onClick={() => setActiveLink(item.title)}>{item.title}</Link>
-            ))}
+        <ul className="flex flex-col gap-2 font-semibold border-b border-subtitleText/25 pb-5 mb-5">
+            {sidebarLinks.map((item) =>
+                signupData.role === "customer" && item.title === "Add Post" ? null : (
+                    <Link
+                    key={item.title}
+                    to={item.link}
+                    className={`${
+                        activeLink === item.title
+                        ? "bg-bgBlack text-background"
+                        : "text-subtitleText"
+                    } cursor-pointer flex items-center gap-2 py-2 px-4 rounded-lg`}
+                    onClick={() => setActiveLink(item.title)}
+                    >
+                    <item.icon size={20} />
+                    {item.title}
+                    </Link>
+                )
+            )}
         </ul>
 
         <div>
-            <h1 className="text-lg text-foreground">Top Creators</h1>
+            <h3 className="text-foreground">Top Creators</h3>
             <ul className="flex gap-5 flex-col mt-5">
                 {creators.map((item) => (
                     <li className="flex gap-2 cursor-pointer">
-                        <div className="bg-actionsColor size-8 rounded-full"></div>
+                        <div className="size-10 rounded-full">
+                            <img src={item.profilePic} alt="picture" className="rounded-full w-full h-full object-cover object-top"/>
+                        </div>
                         <div>
                             <h4 className="text-sm text-foreground font-semibold">{item.name}</h4>
-                            <p className="text-xs text-subtitleText">{item.userName}</p>
+                            <p className="text-xs text-subtitleText">{`${formatCount(item.followers!)}k Followers`}</p>
                         </div>
                     </li>
                 ))}

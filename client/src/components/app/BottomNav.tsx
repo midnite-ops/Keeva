@@ -4,10 +4,11 @@ import { Link } from "react-router-dom"
 
 const BottomNav = () => {
     const [currentLink, setCurrentLink] = useState('app/feed')
+    currentLink
     const navLinks = [
         {
             icon: Home ,
-            link: 'app/feed'
+            link: 'app/home'
         },
         {
             icon: SearchIcon,
@@ -30,7 +31,7 @@ const BottomNav = () => {
   return (
     <nav className='fixed px-4 py-4 z-10 bottom-0 right-0 w-full h-15 md:hidden bg-background flex justify-between items-center'>
         {navLinks.map((item) => (
-            <Link to={item.link} onClick={() => setCurrentLink(item.link)}> <item.icon className="text-black" /></Link>
+            <Link to={item.link} onClick={() => setCurrentLink(item.link)} > <item.icon className="text-black" /></Link>
         ))}
     </nav>
   )
