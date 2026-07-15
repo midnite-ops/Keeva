@@ -7,39 +7,40 @@ import { useAuth } from "../../context/AuthContext";
 
 
 const SideBar = () => {
-    const [activeLink, setActiveLink] = useState('Home')
+    const [activeLink, setActiveLink] = useState(window.location.pathname)
+    console.log(window.location.pathname)
     const creators = users.filter((item) => item.role === 'creator')
     const {signupData} = useAuth()
     const sidebarLinks = [
         {
             title: 'Home',
-            link: 'app/home',
+            link: '/app/home',
             icon: Home
         },
         {
             title: "Explore",
-            link: 'app/explore',
+            link: '/app/explore',
             icon: Search
         },
         
         {
             title: 'Notifications',
-            link: 'app/notifications',
+            link: '/app/notifications',
             icon: Bell
         },
         {
             title: 'Add Post',
-            link: 'app/post',
+            link: '/app/post',
             icon: PlusSquare
         },
         {
             title: 'Saved',
-            link: 'app/saved',
+            link: '/app/saved',
             icon: Bookmark
         },
         {
             title: 'Cart',
-            link: 'app/cart',
+            link: '/app/cart',
             icon: ShoppingBag
         }
     ]
@@ -52,11 +53,11 @@ const SideBar = () => {
                     key={item.title}
                     to={item.link}
                     className={`${
-                        activeLink === item.title
+                        activeLink === item.link
                         ? "bg-bgBlack text-background"
                         : "text-subtitleText"
                     } cursor-pointer flex items-center gap-2 py-2 px-4 rounded-lg`}
-                    onClick={() => setActiveLink(item.title)}
+                    onClick={() => setActiveLink(item.link)}
                     >
                     <item.icon size={20} />
                     {item.title}

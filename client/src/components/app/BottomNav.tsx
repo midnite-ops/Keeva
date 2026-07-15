@@ -3,29 +3,29 @@ import { useState } from "react"
 import { Link } from "react-router-dom"
 
 const BottomNav = () => {
-    const [currentLink, setCurrentLink] = useState('app/feed')
+    const [currentLink, setCurrentLink] = useState(window.location.pathname)
     currentLink
     const navLinks = [
         {
             icon: Home ,
-            link: 'app/home'
+            link: '/app/home'
         },
         {
             icon: SearchIcon,
-            link: 'app/explore'
+            link: '/app/explore'
         },
         
         {
             icon: Plus,
-            link: 'app/create-post'
+            link: '/app/create-post'
         },
         {
             icon: Bell ,
-            link: 'app/notification'
+            link: '/app/notification'
         },
         {
             icon: User2 ,
-            link: 'app/account'
+            link: '/app/account'
         }
     ]
   return (
