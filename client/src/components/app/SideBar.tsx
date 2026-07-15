@@ -66,7 +66,7 @@ const SideBar = () => {
         </ul>
 
         <div>
-            <h1 className="text-lg text-foreground font-semibold">Top Creators</h1>
+            <h3 className="text-foreground">Top Creators</h3>
             <ul className="flex gap-5 flex-col mt-5">
                 {creators.map((item) => (
                     <li className="flex gap-2 cursor-pointer">

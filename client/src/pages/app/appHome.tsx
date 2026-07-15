@@ -36,7 +36,7 @@ const AppFeed = () => {
 
         <div className="hidden xl:block w-120 shrink-0 md:px-10 px-20 pt-1">
           
-          <h2 className="font-semibold mt-10 text-foreground">Suggested Categories</h2>
+          <h3 className="font-semibold mt-10 text-foreground">Suggested Categories</h3>
           {[1,2,3].map(() => (
             <div className="bg-black/90 text-background  rounded-lg flex items-center py-3 mt-5 px-5 justify-between w-full">
               <div className="flex gap-2">

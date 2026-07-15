@@ -97,6 +97,12 @@
   h1{
     @apply font-serif font-extralight text-4xl lg:text-6xl
   }
+  h2{
+    @apply font-serif font-medium text-2xl lg:text-4xl
+  }
+  h3{
+    @apply font-sans font-medium text-lg
+  }
   body {
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
@@ -110,6 +116,9 @@
   }
   .heading{
     @apply flex flex-col gap-2 items-center justify-center
+  }
+  .whiteCard{
+    @apply bg-white border border-subtitleText/30 rounded-xl text-subtitleText font-semibold py-2 px-4
   }
   
 }

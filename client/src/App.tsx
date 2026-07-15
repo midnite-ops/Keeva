@@ -12,6 +12,7 @@ import AuthLayout from "./layout/AuthLayout.tsx";
 import Login from "./pages/authentication/Login.tsx";
 import Role from "./pages/authentication/Role.tsx";
 import { AuthProvider } from "./context/AuthContext.tsx";
+import Explore from "./pages/app/Explore.tsx";
 // import HomePage from "./pages/HomePage.tsx";
 
 const App = () => (
@@ -32,7 +33,8 @@ const App = () => (
         </Route>
 
         <Route element={<AppLayout />}>
-          <Route path="/app/feed" element= {<AppFeed />}/>
+          <Route path="/app/home" element= {<AppFeed />}/>
+          <Route path="app/explore" element= {<Explore />} />
         </Route>
       </Routes>
     </BrowserRouter>
