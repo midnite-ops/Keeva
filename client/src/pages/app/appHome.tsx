@@ -9,12 +9,12 @@ const AppFeed = () => {
   const feedFilter = ["For You", "Trending", "Following", "New", "Brands"];
   const [currentFeed, setCurrentFeed] = useState("For You");
   return (
-    <main className=" text-white h-screen overflow-y-hidden pt-4 px-4 ">
+    <main className=" text-white h-screen overflow-y-hidden ">
 
       <section className=" h-screen flex  gap-6 w-full ">
         <div className="relative overflow-hidden h-full flex-1 flex md:block justify-center">
 
-          <div className="absolute pb-5 w-full top-0">
+          <div className="absolute pb-5 w-full top-0 pt-4 ">
             <ul className="flex gap-4 justify-center xl:justify-start items-center w-full  overflow-x-auto no-scrollbar text-foreground">
               {feedFilter.map((item) => (
                 <li
@@ -27,7 +27,7 @@ const AppFeed = () => {
             </ul>
           </div>
 
-          <div className="overflow-y-scroll w-full flex gap-10 md:gap-10 flex-col no-scrollbar h-11/12 pb-70 md:pb-40 mt-10  md:mt-10">
+          <div className="overflow-y-scroll w-full flex gap-10 md:gap-10 flex-col no-scrollbar h-11/12 pb-70 md:pb-40 mt-15  md:mt-10">
             {[1,2,34,5].map(() => (
               <OutfitCard />
             ))}

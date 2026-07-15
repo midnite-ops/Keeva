@@ -1,7 +1,6 @@
 import type { Outfits, Products } from "../types/productTypes";
 import type {  Users } from "../types/userTypes";
 
-type Outfits_Products = Outfits | Products
 
 export const formatCount = (count: number) => {
   if (count >= 1000) {

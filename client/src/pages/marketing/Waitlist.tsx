@@ -11,6 +11,7 @@ const Waitlist = () => {
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -46,9 +47,9 @@ const Waitlist = () => {
         <Link to={'/app/feed'} className="font-serif text-xl tracking-[0.2em] text-foreground uppercase">
           Keeva
         </Link>
-        <span className="text-xs tracking-[0.3em] text-muted-foreground uppercase font-sans">
+        <Link to={'/auth/signup'} className="text-xs tracking-[0.3em] text-muted-foreground uppercase font-sans" >
           AW 2026
-        </span>
+        </Link>
       </nav>
 
       {/* Hero */}

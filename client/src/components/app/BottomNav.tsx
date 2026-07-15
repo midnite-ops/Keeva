@@ -7,7 +7,7 @@ const BottomNav = () => {
     const navLinks = [
         {
             icon: Home ,
-            link: 'app/feed'
+            link: 'app/home'
         },
         {
             icon: SearchIcon,

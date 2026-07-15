@@ -45,8 +45,8 @@ interface ProductCardProps {
 }
 
 
-export const ProductCard = ({id, productImage, username, profilePic, creatorId, brandId, type, likes, price,  items}: ProductCardProps) => {
-    const creatorIdNum = creatorId
+export const ProductCard = ({id, productImage, username, profilePic, type, likes, price,  items}: ProductCardProps) => {
+    // const creatorIdNum = creatorId
     return(
         <div
             key={id}

@@ -58,7 +58,7 @@ export default function App() {
     <div className="h-fit flex items-center justify-center xl:justify-start md:p-4">
       {/* Card */}
       <div
-        className="bg-white rounded-2xl overflow-hidden shadow-xl"
+        className="bg-white rounded-2xl overflow-hidden "
         style={{
           width: "min(420px, 100%)",
           display: "flex",

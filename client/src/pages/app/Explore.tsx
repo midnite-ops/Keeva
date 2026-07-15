@@ -88,15 +88,13 @@ export default function Explore() {
   };
 
   return (
-    <section className="text-foreground px-5 lg:px-0 pt-10 overflow-y-scroll pb-70 md:pb-40 h-screen">
+    <section className="text-foreground px-1 md:px-5 lg:px-0 pt-10 overflow-y-scroll pb-70 md:pb-40 h-screen">
       <h2>Explore</h2>
 
       <div className="mt-5">
-
         {/* Search */}
 
         <div className="relative">
-
           <div className="absolute left-5 top-4">
             <Search size={20} className="text-subtitleText/50" />
           </div>
@@ -123,7 +121,6 @@ export default function Explore() {
             placeholder="Search outfits, creators, brands"
             className="w-full py-3 pl-15 bg-white rounded-xl border-2 border-bgBlack/10 outline-none focus:border-bgBlack"
           />
-
         </div>
 
         {/* Filters */}
@@ -145,9 +142,7 @@ export default function Explore() {
 
         {showCategory && (
           <div className="flex flex-wrap gap-3 md:gap-5 mt-5 text-sm">
-
             {categories.map((category) => (
-
               <div
                 key={category}
                 onClick={() => handleCategoryClick(category)}
@@ -160,9 +155,7 @@ export default function Explore() {
               >
                 {category}
               </div>
-
             ))}
-
           </div>
         )}
 
@@ -177,13 +170,9 @@ export default function Explore() {
         {/* All */}
 
         {activeCategory === "All" && displaySearch.length > 0 && (
-
-          <div className="columns-2 lg:columns-3 gap-4 mt-10">
-
+          <div className="columns-2 lg:columns-3 gap-2 md:gap-4 mt-10">
             {displaySearch.map((item) => (
-
               <div key={item.id} className="mb-4 break-inside-avoid">
-
                 {item.type === "outfits" && (
                   <ProductCard
                     id={item.id}
@@ -209,25 +198,17 @@ export default function Explore() {
                     type="product"
                   />
                 )}
-
               </div>
-
             ))}
-
           </div>
-
         )}
 
         {/* Profiles */}
 
-        {(activeCategory === "Brands" ||
-          activeCategory === "Creators") &&
+        {(activeCategory === "Brands" || activeCategory === "Creators") &&
           displaySearch.length > 0 && (
-
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-10">
-
               {displaySearch.map((item) => {
-
                 if (item.type !== "user") return null;
 
                 if (item.role === "brand") {
@@ -265,7 +246,6 @@ export default function Explore() {
 
                 return null;
               })}
-
             </div>
           )}
       </div>
