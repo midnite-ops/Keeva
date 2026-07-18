@@ -3,6 +3,7 @@ import { Sparkles, Camera, ShoppingBag } from 'lucide-react';
 import { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { ArrowRight, CheckCircle2,  } from 'lucide-react';
+import { createUser } from '../../utils/storage';
 
 const roles = [
   {
@@ -39,6 +40,7 @@ const Role = () => {
     const navigate = useNavigate()
     const complete = () => {
       setTimeout(() => {
+        createUser(signupData)
         navigate('/app/home')
       }, 5000)
     }

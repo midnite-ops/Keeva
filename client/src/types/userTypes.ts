@@ -7,6 +7,8 @@ export interface BaseUser {
   location: string;
   coverPhoto: string[]
   type: 'user';
+  password?: string
+  email?: string
 }
 
 interface PublicProfile extends BaseUser{

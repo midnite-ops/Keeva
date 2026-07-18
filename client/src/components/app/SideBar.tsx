@@ -1,16 +1,16 @@
 import { useState } from "react"
 import { Link } from "react-router"
 import { ShoppingBag, Home, Search, Bell, PlusSquare, Bookmark  } from "lucide-react"
-import users from '../../data/users';
 import { formatCount } from "../../utils";
-import { useAuth } from "../../context/AuthContext";
-
+import { getStorage } from "../../utils/storage";
+import type { Users } from "../../types/userTypes";
 
 const SideBar = () => {
     const [activeLink, setActiveLink] = useState(window.location.pathname)
-    console.log(window.location.pathname)
+    const users = getStorage<Users>('users')
     const creators = users.filter((item) => item.role === 'creator')
-    const {signupData} = useAuth()
+    const currentUserId = localStorage.getItem('currentUserId')
+    const currentUser = users.find((user => user.id === currentUserId!))
     const sidebarLinks = [
         {
             title: 'Home',
@@ -48,7 +48,7 @@ const SideBar = () => {
     <section className='hidden  md:flex flex-col border-r border-subtitleText/25 w-50 pb-10 px-5 pt-10 '>
         <ul className="flex flex-col gap-2 font-semibold border-b border-subtitleText/25 pb-5 mb-5">
             {sidebarLinks.map((item) =>
-                signupData.role === "customer" && item.title === "Add Post" ? null : (
+                currentUser!.role === "customer" && item.title === "Add Post" ? null : (
                     <Link
                     key={item.title}
                     to={item.link}
