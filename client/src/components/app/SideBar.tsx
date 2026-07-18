@@ -30,7 +30,7 @@ const SideBar = () => {
         },
         {
             title: 'Add Post',
-            link: '/app/post',
+            link: '/app/create-post',
             icon: PlusSquare
         },
         {

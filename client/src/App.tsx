@@ -13,6 +13,7 @@ import Login from "./pages/authentication/Login.tsx";
 import Role from "./pages/authentication/Role.tsx";
 import { AuthProvider } from "./context/AuthContext.tsx";
 import Explore from "./pages/app/Explore.tsx";
+import CreatePost from "./pages/app/CreatePost.tsx";
 // import HomePage from "./pages/HomePage.tsx";
 
 const App = () => (
@@ -35,6 +36,7 @@ const App = () => (
         <Route element={<AppLayout />}>
           <Route path="/app/home" element= {<AppFeed />}/>
           <Route path="app/explore" element= {<Explore />} />
+          <Route path="app/create-post" element= {<CreatePost/>} />
         </Route>
       </Routes>
     </BrowserRouter>
