@@ -190,7 +190,7 @@ export default function Explore() {
                   <ProductCard
                     id={item.id}
                     brandId={item.brandId}
-                    productImage={item.images[0]}
+                    productImage={item.image[0]}
                     price={item.price}
                     likes={item.likes}
                     username={findUser(item.brandId, users)[0].username}

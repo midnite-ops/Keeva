@@ -1,28 +1,25 @@
-export interface Outfits {
-  id: string;
-  creatorId: string;
-  image: string[];
-  caption: string;
-  taggedProducts: string[];
-  likes: number;
-  time: string;
-  name: string;
-  type: 'outfits';
-  price: number;
-  createdAt: string;
+interface BaseProducts {
+  id: string
+  name:string
+  likes: number
+  image: string[]
+  price: number
+  caption: string
+  createdAt: string
+  description: string
 }
 
-export interface Products {
-  id: string;
+export interface Outfits extends BaseProducts {
+  creatorId: string;
+  taggedProducts: string[];
+  type: 'outfits';
+}
+
+export interface Products extends BaseProducts {
   brandId: string;
-  caption: string;
-  description: string;
   category: string;
-  name: string;
-  price: number;
-  images: string[];
   stock: number;
-  likes: number;
-  createdAt: string;
   type: 'product';
 }
+
+export type ProductType = Outfits | Products

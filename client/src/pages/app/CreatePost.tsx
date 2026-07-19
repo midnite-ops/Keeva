@@ -1,165 +1,192 @@
-import { useState, useCallback } from "react";
-import type { ImageFile, SizeStock } from "../../types/createPostTypes";
-import { STEPS } from "../../types/createPostTypes";
-import StepHeader from "../../components/app/create-post/StepHeader";
-import MediaStep from "../../components/app/create-post/MediaStep";
-import DetailsStep from "../../components/app/create-post/DetailsStep";
-import SizesStockStep from "../../components/app/create-post/SizesStockStep";
-import PublishedSuccess from "../../components/app/create-post/PublishedSuccess";
-import ReviewStep from "../../components/app/create-post/ReviewStep";
+import { useState } from 'react'
+import type { ProductFormData } from '../../types/createPostTypes'
+import StepHeader from '../../components/app/create-post/StepHeader'
+import ImageUploadStep from '../../components/app/create-post/ImageUploadStep'
+import DetailsStep from '../../components/app/create-post/DetailsStep'
+import InventoryStep from '../../components/app/create-post/InventoryStep'
+import ReviewStep from '../../components/app/create-post/ReviewStep'
 
+const STEPS = [
+  { number: 1, label: 'Images' },
+  { number: 2, label: 'Details' },
+  { number: 3, label: 'Inventory' },
+  { number: 4, label: 'Review' },
+]
 
-
-function CreatePost() {
-  const [step, setStep] = useState(0);
-  const [images, setImages] = useState<ImageFile[]>([]);
-  const [coverIndex, setCoverIndex] = useState(0);
-  const [productName, setProductName] = useState("");
-  const [category, setCategory] = useState("");
-  const [price, setPrice] = useState("");
-  const [description, setDescription] = useState("");
-  const [selectedSizes, setSelectedSizes] = useState<SizeStock[]>([]);
-  const [published, setPublished] = useState(false);
-
-  const addImages = useCallback((files: FileList | File[]) => {
-    const next: ImageFile[] = Array.from(files)
-      .filter((f) => f.type.startsWith("image/"))
-      .slice(0, 8 - images.length)
-      .map((f) => ({ id: crypto.randomUUID(), url: URL.createObjectURL(f), file: f }));
-    setImages((prev) => [...prev, ...next]);
-  }, [images.length]);
-
-  const removeImage = (id: string) => {
-    setImages((prev) => {
-      const next = prev.filter((img) => img.id !== id);
-      if (coverIndex >= next.length) setCoverIndex(Math.max(0, next.length - 1));
-      return next;
-    });
-  };
-
-  const toggleSize = (size: string) => {
-    setSelectedSizes((prev) =>
-      prev.find((s) => s.size === size)
-        ? prev.filter((s) => s.size !== size)
-        : [...prev, { size, stock: 1 }]
-    );
-  };
-
-  const updateStock = (size: string, delta: number) => {
-    setSelectedSizes((prev) =>
-      prev.map((s) => s.size === size ? { ...s, stock: Math.max(0, s.stock + delta) } : s)
-    );
-  };
-
-  const setStockValue = (size: string, val: string) => {
-    setSelectedSizes((prev) =>
-      prev.map((s) => s.size === size ? { ...s, stock: Math.max(0, parseInt(val) || 0) } : s)
-    );
-  };
-
-  const totalStock = selectedSizes.reduce((sum, s) => sum + s.stock, 0);
-
-  const canNext = [
-    images.length > 0,
-    productName.trim() !== "" && category !== "" && price !== "",
-    selectedSizes.length > 0,
-    true,
-  ][step];
-
-  const handlePublish = () => {
-    setPublished(true);
-    setTimeout(() => {
-      setPublished(false);
-      setStep(0);
-      setImages([]);
-      setProductName("");
-      setCategory("");
-      setPrice("");
-      setDescription("");
-      setSelectedSizes([]);
-      setCoverIndex(0);
-    }, 2500);
-  };
-
-  return (
-    <div
-      className="min-h-screen bg-background  flex flex-col justify-start p-4"
-      style={{ fontFamily: "'Outfit', sans-serif" }}
-    >
-      {/* Brand mark */}
-      <div className="mb-8 ">
-        <h2 className="text-foreground">
-          Create Post
-        </h2>
-      </div>
-
-      {/* Dialog shell */}
-      <div className="w-full max-w-[900px] bg-bgBlack border border-border rounded-xl overflow-hidden shadow-2xl">
-        <StepHeader
-          step={step}
-          canNext={canNext}
-          onBack={() => step > 0 && setStep((s) => s - 1)}
-          onNext={() => step < STEPS.length - 1 ? setStep((s) => s + 1) : handlePublish()}
-        />
-
-        <div className="min-h-[420px]  flex">
-          {step === 0 && (
-            <MediaStep
-              images={images}
-              coverIndex={coverIndex}
-              setCoverIndex={setCoverIndex}
-              addImages={addImages}
-              removeImage={removeImage}
-            />
-          )}
-
-          {step === 1 && (
-            <DetailsStep
-              images={images}
-              coverIndex={coverIndex}
-              productName={productName}
-              setProductName={setProductName}
-              category={category}
-              setCategory={setCategory}
-              price={price}
-              setPrice={setPrice}
-              description={description}
-              setDescription={setDescription}
-            />
-          )}
-
-          {step === 2 && (
-            <SizesStockStep
-              images={images}
-              coverIndex={coverIndex}
-              selectedSizes={selectedSizes}
-              toggleSize={toggleSize}
-              updateStock={updateStock}
-              setStockValue={setStockValue}
-              totalStock={totalStock}
-            />
-          )}
-
-          {step === 3 && !published && (
-            <ReviewStep
-              images={images}
-              coverIndex={coverIndex}
-              setCoverIndex={setCoverIndex}
-              productName={productName}
-              category={category}
-              price={price}
-              description={description}
-              selectedSizes={selectedSizes}
-              totalStock={totalStock}
-              goToStep={setStep}
-            />
-          )}
-
-          {published && <PublishedSuccess productName={productName} />}
-        </div>
-      </div>
-    </div>
-  );
+const EMPTY: ProductFormData = {
+  images: [],
+  name: '',
+  category: '',
+  description: '',
+  price: '',
+  sizeStock: [],
 }
 
-export default CreatePost
+export default function AddPost() {
+  const [step, setStep] = useState(1)
+  const [form, setForm] = useState<ProductFormData>(EMPTY)
+  const [published, setPublished] = useState(false)
+  const [coverPreview, setCoverPreview] = useState<string | null>(null)
+
+  const updateField = (field: string, value: string) =>
+    setForm((prev) => ({ ...prev, [field]: value }))
+
+  const handleImages = (images: typeof form.images) => {
+    setForm((prev) => ({ ...prev, images }))
+    setCoverPreview(images.length > 0 ? URL.createObjectURL(images[0]) : null)
+  }
+
+  const canAdvance = () => {
+    if (step === 1) return form.images.length > 0
+    if (step === 2) return form.name.trim() !== '' && form.category !== '' && form.price !== ''
+    if (step === 3) return form.sizeStock.length > 0
+    return true
+  }
+
+  const handleReset = () => {
+    setForm(EMPTY)
+    setCoverPreview(null)
+    setStep(1)
+    setPublished(false)
+  }
+
+  if (published) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center px-6">
+        <div className="text-center w-full max-w-sm">
+          <div className="w-16 h-16 rounded-full bg-black flex items-center justify-center mx-auto mb-6">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M4 12l5 5 11-10" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+          <h2
+            className="text-3xl font-semibold text-black mb-3"
+            style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+          >
+            Product Published
+          </h2>
+          <p
+            className="text-sm text-neutral-500 mb-8 leading-relaxed"
+            style={{ fontFamily: 'Inter, system-ui, sans-serif' }}
+          >
+            <strong className="text-black">{form.name}</strong> is now live in your store.
+          </p>
+          <button
+            onClick={handleReset}
+            className="inline-flex items-center gap-2 px-6 py-2.5 bg-black text-white text-sm font-medium rounded-full hover:bg-neutral-800 transition-colors"
+            style={{ fontFamily: 'Inter, system-ui, sans-serif' }}
+          >
+            Add another product
+          </button>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="min-h-screen bg-white">
+      {/* Sticky top nav */}
+      <div className="sticky top-0 z-10 bg-white/95 backdrop-blur-sm border-b border-neutral-100">
+        <div className="max-w-2xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-4">
+          {/* Back */}
+          <button
+            type="button"
+            onClick={() => setStep((s) => Math.max(1, s - 1))}
+            disabled={step === 1}
+            className="flex items-center gap-1.5 text-sm font-medium text-neutral-500 hover:text-black disabled:opacity-0 disabled:pointer-events-none transition-colors flex-shrink-0"
+            style={{ fontFamily: 'Inter, system-ui, sans-serif' }}
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <span className="hidden sm:inline">Back</span>
+          </button>
+
+          {/* Step label */}
+          <span
+            className="text-xs font-medium text-neutral-400 uppercase tracking-widest"
+            style={{ fontFamily: 'Inter, system-ui, sans-serif' }}
+          >
+            Step {step} of {STEPS.length}
+          </span>
+
+          {/* Continue / Publish */}
+          {step < 4 ? (
+            <button
+              type="button"
+              onClick={() => setStep((s) => Math.min(4, s + 1))}
+              disabled={!canAdvance()}
+              className="flex items-center gap-1.5 px-4 sm:px-5 py-2 bg-black text-white text-sm font-medium rounded-full hover:bg-neutral-800 disabled:opacity-30 disabled:cursor-not-allowed transition-all flex-shrink-0"
+              style={{ fontFamily: 'Inter, system-ui, sans-serif' }}
+            >
+              Continue
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setPublished(true)}
+              className="flex items-center gap-1.5 px-4 sm:px-5 py-2 bg-black text-white text-sm font-medium rounded-full hover:bg-neutral-800 transition-colors flex-shrink-0"
+              style={{ fontFamily: 'Inter, system-ui, sans-serif' }}
+            >
+              <span className="hidden sm:inline">Publish</span>
+              <span className="sm:hidden">Publish</span>
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                <path d="M2 8h12M9 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Page content */}
+      <div className="max-w-2xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+        {/* Page heading */}
+        <div className="mb-8 sm:mb-10">
+          <p
+            className="text-xs font-medium text-neutral-400 uppercase tracking-widest mb-1"
+            style={{ fontFamily: 'Inter, system-ui, sans-serif' }}
+          >
+            Add Product
+          </p>
+          <h1
+            className="text-3xl sm:text-4xl font-semibold text-black leading-tight"
+            style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+          >
+            New Post
+          </h1>
+        </div>
+
+        {/* Step indicator */}
+        <StepHeader steps={STEPS} currentStep={step} />
+
+        {/* Step content */}
+        <div className="min-h-[320px]">
+          {step === 1 && (
+            <ImageUploadStep images={form.images} onChange={handleImages} />
+          )}
+          {step === 2 && (
+            <DetailsStep
+              data={{ name: form.name, category: form.category, description: form.description, price: form.price }}
+              onChange={updateField}
+            />
+          )}
+          {step === 3 && (
+            <InventoryStep
+              sizeStock={form.sizeStock}
+              onChange={(sizeStock) => setForm((prev) => ({ ...prev, sizeStock }))}
+            />
+          )}
+          {step === 4 && (
+            <ReviewStep data={form} coverPreview={coverPreview} />
+          )}
+        </div>
+
+        {/* Bottom spacer for mobile comfort */}
+        <div className="h-10 sm:h-0" />
+      </div>
+    </div>
+  )
+}

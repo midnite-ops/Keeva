@@ -1,110 +1,115 @@
-import { useState } from "react";
-import { ChevronDown } from "lucide-react";
-import { CATEGORIES} from "../../../types/createPostTypes";
-import ImagePreviewPanel from "./ImagePreviewPanel";
-import type { ImageFile } from '../../../types/createPostTypes'
+import type { ChangeEvent } from 'react'
+import {  CATEGORIES } from '../../../types/createPostTypes'
+import type { ProductFormData } from '../../../types/createPostTypes'
 
-interface DetailsStepProps {
-  images: ImageFile[];
-  coverIndex: number;
-  productName: string;
-  setProductName: (v: string) => void;
-  category: string;
-  setCategory: (v: string) => void;
-  price: string;
-  setPrice: (v: string) => void;
-  description: string;
-  setDescription: (v: string) => void;
+interface ProductDetailsStepProps {
+  data: Pick<ProductFormData, 'name' | 'category' | 'description' | 'price'>
+  onChange: (field: string, value: string) => void
 }
 
-export default function DetailsStep({
-  images, coverIndex,
-  productName, setProductName,
-  category, setCategory,
-  price, setPrice,
-  description, setDescription,
-}: DetailsStepProps) {
-  const [categoryOpen, setCategoryOpen] = useState(false);
+const inputClass =
+  'w-full border border-neutral-200 rounded-lg px-3.5 py-2.5 text-sm text-black placeholder-neutral-400 focus:outline-none focus:border-black transition-colors bg-white'
+
+const labelClass = 'block text-xs font-medium text-neutral-600 mb-1.5 tracking-wide uppercase'
+
+export default function DetailsStep({ data, onChange }: ProductDetailsStepProps) {
+  const handle = (field: string) => (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
+    onChange(field, e.target.value)
 
   return (
-    <div className="flex flex-col md:flex-row w-full">
-      <ImagePreviewPanel images={images} coverIndex={coverIndex} />
+    <div className="space-y-6">
+      <div>
+        <h2
+          className="text-xl sm:text-2xl font-semibold text-black mb-1"
+          style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+        >
+          Product Details
+        </h2>
+        <p className="text-sm text-neutral-500" style={{ fontFamily: 'Inter, system-ui, sans-serif' }}>
+          Give your product a name, category, and story.
+        </p>
+      </div>
 
-      <div className="flex-1 p-5 sm:p-8 space-y-6 overflow-y-auto">
+      <div className="space-y-4">
+        {/* Product name */}
         <div>
-          <h2
-            className="text-2xl text-subtitleText leading-none mb-1"
-            style={{ fontFamily: "'Barlow Condensed', sans-serif", fontWeight: 700, letterSpacing: "0.05em" }}
-          >
-            PRODUCT DETAILS
-          </h2>
-          <p className="text-xs text-muted-foreground">Name, category, price and description.</p>
-        </div>
-
-        <div className="space-y-1">
-          <label className="text-[10px] tracking-widest uppercase text-muted-foreground">Product Name</label>
+          <label className={labelClass} style={{ fontFamily: 'Inter, system-ui, sans-serif' }}>
+            Product Name
+          </label>
           <input
-            value={productName}
-            onChange={(e) => setProductName(e.target.value)}
-            placeholder="e.g. Oversized Wool Coat"
-            className="w-full bg-input-background text-background placeholder:text-muted-foreground rounded-md px-4 py-3 text-sm border border-border focus:outline-none focus:border-accent/60 transition-colors"
+            type="text"
+            value={data.name}
+            onChange={handle('name')}
+            placeholder="e.g. Linen Oversized Blazer"
+            className={inputClass}
+            style={{ fontFamily: 'Inter, system-ui, sans-serif' }}
           />
         </div>
 
-        <div className="space-y-1 relative">
-          <label className="text-[10px] tracking-widest uppercase text-muted-foreground">Category</label>
-          <button
-            type="button"
-            onClick={() => setCategoryOpen((o) => !o)}
-            className="w-full bg-input-background text-left rounded-md px-4 py-3 text-sm border border-border focus:outline-none hover:border-accent/40 transition-colors flex items-center justify-between"
-          >
-            <span className={category ? "text-background " : ""}>{category || "Select category"}</span>
-            <ChevronDown size={14} className={`transition-transform ${categoryOpen ? "rotate-180" : ""}`} />
-          </button>
-          {categoryOpen && (
-            <div className="absolute z-20 top-full left-0 right-0 mt-1 bg-background border border-subtitleText rounded-md overflow-y-scroll h-50 shadow-xl">
-              {CATEGORIES.map((cat) => (
-                <button
-                  key={cat}
-                  type="button"
-                  className=' text-foreground w-full text-left px-4 py-2.5 text-sm hover:bg-muted transition-colors'
-                  onClick={() => { setCategory(cat); setCategoryOpen(false); }}
-                >
-                  {cat}
-                </button>
+        {/* Category + Price row */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label className={labelClass} style={{ fontFamily: 'Inter, system-ui, sans-serif' }}>
+              Category
+            </label>
+            <select
+              value={data.category}
+              onChange={handle('category')}
+              className={inputClass}
+              style={{ fontFamily: 'Inter, system-ui, sans-serif' }}
+            >
+              <option value="" disabled>Select category</option>
+              {CATEGORIES.map((c) => (
+                <option key={c.value} value={c.value}>{c.label}</option>
               ))}
+            </select>
+          </div>
+          <div>
+            <label className={labelClass} style={{ fontFamily: 'Inter, system-ui, sans-serif' }}>
+              Price (USD)
+            </label>
+            <div className="relative">
+              <span
+                className="absolute left-3.5 top-1/2 -translate-y-1/2 text-sm text-neutral-400 pointer-events-none"
+                style={{ fontFamily: 'Inter, system-ui, sans-serif' }}
+              >
+                $
+              </span>
+              <input
+                type="number"
+                min="0"
+                step="0.01"
+                value={data.price}
+                onChange={handle('price')}
+                placeholder="0.00"
+                className={`${inputClass} pl-7`}
+                style={{ fontFamily: 'Inter, system-ui, sans-serif' }}
+              />
             </div>
-          )}
-        </div>
-
-        <div className="space-y-1">
-          <label className="text-[10px] tracking-widest uppercase text-muted-foreground">Price (USD)</label>
-          <div className="relative">
-            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">$</span>
-            <input
-              type="number"
-              min="0"
-              step="0.01"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-              placeholder="0.00"
-              className="w-full bg-input-background text-background rounded-md pl-8 pr-4 py-3 text-sm border border-border focus:outline-none focus:border-accent/60 transition-colors"
-            />
           </div>
         </div>
 
-        <div className="space-y-1">
-          <label className="text-[10px] tracking-widest uppercase text-muted-foreground">Description</label>
+        {/* Description */}
+        <div>
+          <label className={labelClass} style={{ fontFamily: 'Inter, system-ui, sans-serif' }}>
+            Description
+          </label>
           <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            placeholder="Describe the cut, material, and feel..."
-            rows={4}
-            className="w-full bg-input-background text-background placeholder:text-muted-foreground rounded-md px-4 py-3 text-sm border border-border focus:outline-none focus:border-accent/60 resize-none transition-colors"
+            value={data.description}
+            onChange={handle('description')}
+            placeholder="Describe the fabric, fit, care instructions, and what makes this piece special…"
+            rows={5}
+            className={`${inputClass} resize-none leading-relaxed`}
+            style={{ fontFamily: 'Inter, system-ui, sans-serif' }}
           />
-          <p className="text-[10px] text-muted-foreground text-right">{description.length} / 600</p>
+          <p
+            className="text-xs text-neutral-400 mt-1 text-right"
+            style={{ fontFamily: 'Inter, system-ui, sans-serif' }}
+          >
+            {data.description.length} / 800
+          </p>
         </div>
       </div>
     </div>
-  );
+  )
 }
