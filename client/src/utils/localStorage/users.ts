@@ -1,5 +1,5 @@
 import type { Users } from "../../types/userTypes";
-import { saveStorage, getStorage } from "./initializeStorage";
+import { saveStorage, getStorage, initializeStorage } from "./initializeStorage";
 
 type CreateUserProps = {
   email: string;
@@ -88,6 +88,8 @@ export const createUser = ({
     default:
       throw new Error("Invalid user role");
   }
+
+  initializeStorage()
 
   const users = getStorage<Users>("users");
 

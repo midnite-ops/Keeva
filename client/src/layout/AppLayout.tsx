@@ -2,8 +2,9 @@ import { Outlet } from "react-router-dom"
 import Header from "../components/app/Header"
 import SideBar from "../components/app/SideBar"
 import BottomNav from "../components/app/BottomNav"
-const AppLayout = () => {
 
+const AppLayout = () => {
+ 
   return (
     <div className="h-dvh  text-white overflow-hidden">
 

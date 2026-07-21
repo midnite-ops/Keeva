@@ -2,7 +2,7 @@ interface BaseProducts {
   id: string
   name:string
   likes: number
-  image: string[]
+  images: string[]
   price: number
   caption: string
   createdAt: string

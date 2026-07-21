@@ -120,6 +120,9 @@
   .whiteCard{
     @apply bg-white border border-subtitleText/30 rounded-xl text-subtitleText font-semibold py-2 px-4
   }
+  .section-scrolling{
+    @apply pb-70 md:pb-40 md:mt-10
+  }
   
 }
 

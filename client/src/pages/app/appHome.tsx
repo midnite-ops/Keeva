@@ -1,13 +1,8 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import OutfitCard from "../../components/app/OutfitCard";
-import { initializeStorage } from "../../utils/localStorage/initializeStorage";
-import { getCurrentUser } from "../../utils/localStorage/getCurrentUser";
+
 
 const AppFeed = () => {
-  useEffect(() => {
-    initializeStorage();
-    getCurrentUser();
-  }, []);
 
   const feedFilter = ["For You", "Trending", "Following", "New", "Brands"];
   const [currentFeed, setCurrentFeed] = useState("For You");

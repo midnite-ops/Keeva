@@ -16,10 +16,11 @@ export interface SizeStock {
 export interface ProductFormData {
   images: File[]
   name: string
-  category: Category | ''
+  category?: Category | ''
   description: string
   price: string
-  sizeStock: SizeStock[]
+  sizeStock?: SizeStock[]
+  taggedProducts?: string[]
 }
 
 export const SIZES: Size[] = ['XS', 'S', 'M', 'L', 'XL', 'XXL']

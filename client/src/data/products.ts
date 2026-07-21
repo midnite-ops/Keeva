@@ -14,7 +14,7 @@ const data: Products[] = [
     category: "Bags",
     description: "",
     createdAt: "",
-    name: "Linen Wide-Leg Trouser",
+    name: "Gucci bag",
     type: "product",
   },
 
@@ -31,7 +31,7 @@ const data: Products[] = [
     category: "Shoes",
     description: "",
     createdAt: "",
-    name: "Linen Wide-Leg Trouser",
+    name: "Nike Shoes",
     type: "product",
   },
 
@@ -48,13 +48,13 @@ const data: Products[] = [
     category: "Shoes",
     description: "",
     createdAt: "",
-    name: "Linen Wide-Leg Trouser",
+    name: "Prada Shoes",
     type: "product",
   },
   {
     id: "4",
     brandId: '3',
-    name: "Linen Wide-Leg Trouser",
+    name: "Rolex watch",
     caption: "Sunday market energy. Linen everything, always. 🌿",
     price: 5000,
     images: [

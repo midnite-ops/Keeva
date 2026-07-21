@@ -10,7 +10,7 @@ export const formatCount = (count: number) => {
 };
 
 export const findUser = (id:string, user:Users[]) => {
-  const foundUser = user.filter((item) => {
+  const foundUser = user.find((item) => {
     return item.id === id
   })
 
