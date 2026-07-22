@@ -1,4 +1,4 @@
-import { useEffect, useState, type ChangeEvent } from "react";
+import { useEffect, useState } from "react";
 import { CATEGORIES } from "../../../types/createPostTypes";
 import type { ProductFormData } from "../../../types/createPostTypes";
 import { productSearchLogic } from "../../../utils/searchLogic";
@@ -12,8 +12,9 @@ interface ProductDetailsStepProps {
     ProductFormData,
     "name" | "category" | "description" | "price" | "taggedProducts"
   >;
-  onChange: (field: string, value: string | string[] | number) => void;
-  type: string;
+  onChange: (field: string, value: string | Products[]) => void;
+  role: string;
+  onDeleteProduct: (id:string) => void
 }
 
 const getUsers = getStorage<Users>("users");
@@ -26,8 +27,9 @@ const labelClass =
 
 export default function DetailsStep({
   data,
-  type,
+  role,
   onChange,
+  onDeleteProduct
 }: ProductDetailsStepProps) {
   const [productSearch, setProductSearch] = useState("");
   const [onSearch, setOnSearch] = useState(false);
@@ -58,13 +60,14 @@ export default function DetailsStep({
           className="text-xl sm:text-2xl font-semibold text-black mb-1"
           style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
         >
-          Product Details
+          {role === "brand" ? "Product" : "Outfit"} Details
         </h2>
         <p
           className="text-sm text-neutral-500"
           style={{ fontFamily: "Inter, system-ui, sans-serif" }}
         >
-          Give your product a name, category, and story.
+          Give your {role === "brand" ? "product" : "outfit"} a name, category,
+          and story.
         </p>
       </div>
 
@@ -75,7 +78,7 @@ export default function DetailsStep({
             className={labelClass}
             style={{ fontFamily: "Inter, system-ui, sans-serif" }}
           >
-            Product Name
+            {role === "brand" ? "Product" : "Outfit"} Name
           </label>
           <input
             type="text"
@@ -89,7 +92,7 @@ export default function DetailsStep({
 
         {/* Category + Price row */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {type === "brand" ? (
+          {role === "brand" ? (
             <div>
               <label
                 className={labelClass}
@@ -119,7 +122,7 @@ export default function DetailsStep({
                 className={labelClass}
                 style={{ fontFamily: "Inter, system-ui, sans-serif" }}
               >
-                TagProducts
+                Tag Products
               </label>
               <input
                 type="text"
@@ -129,8 +132,24 @@ export default function DetailsStep({
                 className={inputClass}
               />
 
+              {data.taggedProducts?.length !== 0 && (
+                <div className="flex gap-2 flex-wrap mt-2">
+                  {data.taggedProducts!.map((item) => {
+                    return (
+                      <div
+                        key={item.brandId}
+                        className="text-foreground bg-background text-[10px]  px-2 py-0.5 rounded-full flex gap-2"
+                      >
+                        <p>{item.name}</p>
+                        <p className="cursor-pointer" onClick={() => onDeleteProduct(item.id)}>x</p>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+
               {onSearch && (
-                <div className="bg-background absolute -bottom-25 left-20 w-3/4 text-foreground h-25 py-2 px-4 rounded-md overflow-y-scroll flex gap-5 flex-col">
+                <div className="bg-background z-10 absolute -bottom-25 left-20 w-3/4 text-foreground h-25 py-2 px-4 rounded-md overflow-y-scroll flex gap-5 flex-col">
                   {searchResults.length === 0 ? (
                     <p className="text-center text-subtitleText mt-5">
                       No results found
@@ -142,10 +161,14 @@ export default function DetailsStep({
                         <div
                           key={item.id}
                           onClick={() => {
-                            onChange("taggedProducts", [
+                            setOnSearch(false);
+                            setProductSearch("");
+                            const newArray = [
                               ...(data.taggedProducts ?? []),
-                              item.id,
-                            ]);
+                              item,
+                            ];
+                            console.log(data);
+                            onChange("taggedProducts", newArray);
                           }}
                           className="cursor-pointer flex items-center gap-5"
                         >

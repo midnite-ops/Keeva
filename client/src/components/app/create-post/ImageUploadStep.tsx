@@ -4,9 +4,10 @@ import type { DragEvent, ChangeEvent} from 'react'
 interface ImageUploadStepProps {
   images: File[]
   onChange: (images: File[]) => void
+  role: string
 }
 
-export default function ImageUploadStep({ images, onChange }: ImageUploadStepProps) {
+export default function ImageUploadStep({ images, onChange, role }: ImageUploadStepProps) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [dragging, setDragging] = useState(false)
   const [previews, setPreviews] = useState<string[]>([])
@@ -46,7 +47,7 @@ export default function ImageUploadStep({ images, onChange }: ImageUploadStepPro
           className="text-xl sm:text-2xl font-semibold text-black mb-1"
           style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
         >
-          Product Images
+          {role === 'brand' ? "Product" : 'Outfit'} Images
         </h2>
         <p className="text-sm text-neutral-500" style={{ fontFamily: 'Inter, system-ui, sans-serif' }}>
           Upload up to 6 images. The first image will be the cover.

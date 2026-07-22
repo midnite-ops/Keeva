@@ -1,3 +1,5 @@
+import type { Products } from "./productTypes"
+
 export type Category =
   | 'tops'
   | 'bottoms'
@@ -20,7 +22,7 @@ export interface ProductFormData {
   description: string
   price: string
   sizeStock?: SizeStock[]
-  taggedProducts?: string[]
+  taggedProducts?: Products[]
 }
 
 export const SIZES: Size[] = ['XS', 'S', 'M', 'L', 'XL', 'XXL']
