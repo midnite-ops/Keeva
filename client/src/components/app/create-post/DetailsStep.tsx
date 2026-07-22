@@ -153,7 +153,7 @@ export default function DetailsStep({
               )}
 
               {onSearch && (
-                <div className="bg-background z-10 absolute -bottom-20 right-10 w-3/5 text-foreground h-15 py-2 px-4 rounded-md overflow-y-scroll flex gap-5 flex-col">
+                <div className="bg-background z-10 absolute -bottom-20 right-10 w-3/4 text-foreground h-15 p-2 rounded-md overflow-y-scroll flex gap-5 flex-col">
                   {searchResults.length === 0 ? (
                     <p className="text-center text-subtitleText mt-5">
                       No results found
@@ -161,9 +161,11 @@ export default function DetailsStep({
                   ) : (
                     searchResults.map((item) => {
                       const brand = findUser(item.id, getUsers);
+                      const isDisabled = data.taggedProducts?.some((productItem) => productItem.id === item.id)
                       return (
-                        <div
+                        <button
                           key={item.id}
+                          disabled={isDisabled}
                           onClick={() => {
                             setOnSearch(false);
                             setProductSearch("");
@@ -174,20 +176,20 @@ export default function DetailsStep({
                             updatePrice(item.price, '+')
                             onChange("taggedProducts", newArray);
                           }}
-                          className="cursor-pointer flex items-center gap-5"
+                          className={`flex items-center gap-3 ${isDisabled ? "opacity-70 cursor-not-allowed" : "cursor-pointer"}`}
                         >
                           <img
                             src={item?.images[0]}
                             alt={item.description}
                             className="size-10 rounded-md"
                           />
-                          <div>
-                            <p className="text-sm">{item.name}</p>
-                            <span className="text-xs text-subtitleText">
+                          <div className="flex flex-col space-y-0">
+                            <p className="text-xs text-start">{item.name}</p>
+                            <span className="text-[10px] text-start text-subtitleText">
                               @{brand?.username}
                             </span>
                           </div>
-                        </div>
+                        </button>
                       );
                     })
                   )}

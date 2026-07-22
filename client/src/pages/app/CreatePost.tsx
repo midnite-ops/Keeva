@@ -355,6 +355,7 @@ export default function AddPost() {
             <ReviewStep
               data={form}
               coverPreview={coverPreview}
+              role={isBrand ? "brand" : "creator"}
             />
           )}
         </div>
