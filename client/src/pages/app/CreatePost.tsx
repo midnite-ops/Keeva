@@ -13,7 +13,7 @@ const EMPTY: ProductFormData = {
   name: "",
   category: "",
   description: "",
-  price: "",
+  price: Number(),
   sizeStock: [],
   taggedProducts: [],
 };
@@ -46,7 +46,7 @@ export default function AddPost() {
 
   const updateField = (
     field: string,
-    value: string | Products[]
+    value: string | number | Products[]
   ) => {
     setForm((prev) => ({
       ...prev,
@@ -58,9 +58,15 @@ export default function AddPost() {
     setForm((prev) => ({...prev, taggedProducts: prev.taggedProducts?.filter((item) => item.id !== id)}))
   }
 
-  // const updatePrice = (price: string) => {
-  //   setForm((prev) => ({...prev, price: prev.}))
-  // }
+  const updatePrice = (price: number, event:string) => {
+    if(event === '+'){
+      setForm((prev) => ({...prev, price: (prev.price + price)}))
+    }
+    if(event === '-'){
+      setForm((prev) => ({...prev, price: (prev.price - price)}))
+    }
+    
+  }
 
   const handleImages = (images: typeof form.images) => {
     setForm((prev) => ({
@@ -85,14 +91,14 @@ export default function AddPost() {
         return (
           form.name.trim() !== "" &&
           form.category !== "" &&
-          form.price !== ""
+          form.price !== 0
         );
       }
 
       return (
         form.name.trim() !== "" &&
         (form.taggedProducts?.length ?? 0) > 0 &&
-        form.price !== ""
+        form.price !== 0
       );
     }
 
@@ -325,6 +331,7 @@ export default function AddPost() {
                     }
               }
               onDeleteProduct={deleteTaggedProduct}
+              updatePrice= {updatePrice}
               onChange={updateField}
               role={currentUser?.role ?? "creator"}
             />

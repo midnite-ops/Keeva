@@ -20,7 +20,7 @@ export interface ProductFormData {
   name: string
   category?: Category | ''
   description: string
-  price: string
+  price: number
   sizeStock?: SizeStock[]
   taggedProducts?: Products[]
 }

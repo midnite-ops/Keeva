@@ -12,9 +12,10 @@ interface ProductDetailsStepProps {
     ProductFormData,
     "name" | "category" | "description" | "price" | "taggedProducts"
   >;
-  onChange: (field: string, value: string | Products[]) => void;
+  onChange: (field: string, value: string | number | Products[]) => void;
   role: string;
   onDeleteProduct: (id:string) => void
+  updatePrice: (price: number, event:string) => void
 }
 
 const getUsers = getStorage<Users>("users");
@@ -29,7 +30,8 @@ export default function DetailsStep({
   data,
   role,
   onChange,
-  onDeleteProduct
+  onDeleteProduct,
+  updatePrice
 }: ProductDetailsStepProps) {
   const [productSearch, setProductSearch] = useState("");
   const [onSearch, setOnSearch] = useState(false);
@@ -49,7 +51,7 @@ export default function DetailsStep({
     setSearchResults(results);
   }, [productSearch]);
 
-  const handleChange = (field: string, value: string) => {
+  const handleChange = (field: string, value: string | number) => {
     onChange(field, value);
   };
 
@@ -141,7 +143,9 @@ export default function DetailsStep({
                         className="text-foreground bg-background text-[10px]  px-2 py-0.5 rounded-full flex gap-2"
                       >
                         <p>{item.name}</p>
-                        <p className="cursor-pointer" onClick={() => onDeleteProduct(item.id)}>x</p>
+                        <p className="cursor-pointer" onClick={() =>{ onDeleteProduct(item.id)
+                        updatePrice(item.price, '-')
+                        }}>x</p>
                       </div>
                     );
                   })}
@@ -149,7 +153,7 @@ export default function DetailsStep({
               )}
 
               {onSearch && (
-                <div className="bg-background z-10 absolute -bottom-25 left-20 w-3/4 text-foreground h-25 py-2 px-4 rounded-md overflow-y-scroll flex gap-5 flex-col">
+                <div className="bg-background z-10 absolute -bottom-20 right-10 w-3/5 text-foreground h-15 py-2 px-4 rounded-md overflow-y-scroll flex gap-5 flex-col">
                   {searchResults.length === 0 ? (
                     <p className="text-center text-subtitleText mt-5">
                       No results found
@@ -167,7 +171,7 @@ export default function DetailsStep({
                               ...(data.taggedProducts ?? []),
                               item,
                             ];
-                            console.log(data);
+                            updatePrice(item.price, '+')
                             onChange("taggedProducts", newArray);
                           }}
                           className="cursor-pointer flex items-center gap-5"
@@ -175,7 +179,7 @@ export default function DetailsStep({
                           <img
                             src={item?.images[0]}
                             alt={item.description}
-                            className="size-15 rounded-md"
+                            className="size-10 rounded-md"
                           />
                           <div>
                             <p className="text-sm">{item.name}</p>
@@ -197,7 +201,7 @@ export default function DetailsStep({
               className={labelClass}
               style={{ fontFamily: "Inter, system-ui, sans-serif" }}
             >
-              Price (USD)
+             Total Price (USD)
             </label>
             <div className="relative">
               <span
@@ -206,16 +210,27 @@ export default function DetailsStep({
               >
                 $
               </span>
-              <input
+              {role === 'brand' ? <input
                 type="number"
                 min="0"
                 step="0.01"
                 value={data.price}
-                onChange={(e) => handleChange("price", e.target.value)}
+                onChange={(e) => handleChange("price", Number(e.target.value))}
                 placeholder="0.00"
                 className={`${inputClass} pl-7`}
                 style={{ fontFamily: "Inter, system-ui, sans-serif" }}
-              />
+              /> : <input
+                type="number"
+                disabled
+                min="0"
+                step="0.01"
+                value={data.price}
+                onChange={(e) => handleChange("price", Number(e.target.value))}
+                placeholder="0.00"
+                className={`${inputClass} pl-7`}
+                style={{ fontFamily: "Inter, system-ui, sans-serif" }}
+              />}
+              
             </div>
           </div>
         </div>
