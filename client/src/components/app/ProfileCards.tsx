@@ -33,7 +33,7 @@ interface ProfileCardProps {
 
 interface ProductCardProps {
   id: string;
-  productImage: string;
+  productImage: string[];
   profilePic: string
   creatorId?: string;
   brandId?: string
@@ -63,7 +63,7 @@ export const ProductCard = ({id, productImage, username, profilePic, type, likes
             className="relative overflow-hidden bg-stone-100"
             style={{ height: type === 'outfit' ? 420 : 200 }}
             >
-            <img src={productImage} alt="" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+            <img src={productImage[0]} alt="" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
             <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.5), transparent 60%)" }} />
 
             {/* Like button */}

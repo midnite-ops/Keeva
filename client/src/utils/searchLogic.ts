@@ -11,6 +11,7 @@ const productsData = getStorage<Products>('products')
 const usersData = getStorage<Users>('users')
 
 const data: Data[] = [...outfitData, ...productsData, ...usersData];
+console.log(productsData)
 
 export const searchLogic = (
   filters: string,
@@ -35,7 +36,7 @@ export const searchLogic = (
 
     if (filters === "All") {
       if (item.type === "product") {
-        return item.category.toLowerCase().includes(query);
+        return item.name.toLowerCase().includes(query);
       }
 
       if (item.type === "outfits") {

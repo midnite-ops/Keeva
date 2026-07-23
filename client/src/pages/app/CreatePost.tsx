@@ -7,6 +7,8 @@ import InventoryStep from "../../components/app/create-post/InventoryStep";
 import ReviewStep from "../../components/app/create-post/ReviewStep";
 import { getCurrentUser } from "../../utils/localStorage/getCurrentUser";
 import type { Products } from "../../types/productTypes";
+import { createPost } from "../../utils/localStorage/createPost";
+import { getStorage } from "../../utils/localStorage/initializeStorage";
 
 const EMPTY: ProductFormData = {
   images: [],
@@ -44,6 +46,13 @@ export default function AddPost() {
   const [published, setPublished] = useState(false);
   const [coverPreview, setCoverPreview] = useState<string | null>(null);
 
+  const handleCreatePost = () => {
+    setPublished(true)
+    if (!currentUser) {
+    return;
+  }
+    createPost(form, currentUser?.role, currentUser.id)
+  }
   const updateField = (
     field: string,
     value: string | number | Products[]
@@ -232,7 +241,7 @@ export default function AddPost() {
           {isReviewStep ? (
             <button
               type="button"
-              onClick={() => setPublished(true)}
+              onClick={handleCreatePost}
               className="flex items-center gap-1.5 px-4 sm:px-5 py-2 bg-black text-white text-sm font-medium rounded-full hover:bg-neutral-800 transition-colors"
             >
               Publish

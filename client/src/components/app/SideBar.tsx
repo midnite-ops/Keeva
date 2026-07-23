@@ -77,23 +77,28 @@ const SideBar = () => {
       <div>
         <h3 className="text-foreground">Top Creators</h3>
         <ul className="flex gap-5 flex-col mt-5">
-          {creators.map((item) => (
-            <li className="flex gap-2 cursor-pointer">
-              <div className="size-10 rounded-full">
-                <img
-                  src={item.profilePic}
-                  alt="picture"
-                  className="rounded-full w-full h-full object-cover object-top"
-                />
-              </div>
-              <div>
-                <h4 className="text-sm text-foreground font-semibold">
-                  {item.name}
-                </h4>
-                <p className="text-xs text-subtitleText">{`${formatCount(item.followers!)}k Followers`}</p>
-              </div>
-            </li>
-          ))}
+          {creators.map((item, index) => {
+            if(index === 3){
+              return
+            }
+            return (
+              <li className="flex gap-2 cursor-pointer">
+                <div className="size-10 rounded-full">
+                  <img
+                    src={item.profilePic}
+                    alt="picture"
+                    className="rounded-full w-full h-full object-cover object-top"
+                  />
+                </div>
+                <div>
+                  <h4 className="text-sm text-foreground font-semibold">
+                    {item.name}
+                  </h4>
+                  <p className="text-xs text-subtitleText">{`${formatCount(item.followers!)}k Followers`}</p>
+                </div>
+              </li>
+            );
+          })}
         </ul>
       </div>
 

@@ -160,7 +160,7 @@ export default function DetailsStep({
                     </p>
                   ) : (
                     searchResults.map((item) => {
-                      const brand = findUser(item.id, getUsers);
+                      const brand = findUser(item.id);
                       const isDisabled = data.taggedProducts?.some((productItem) => productItem.id === item.id)
                       return (
                         <button

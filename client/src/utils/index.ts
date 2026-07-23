@@ -3,7 +3,6 @@ import { getStorage } from "./localStorage/initializeStorage";
 getStorage
 
 const users = getStorage<Users>('users')
-console.log(users)
 
 export const formatCount = (count: number) => {
   if (count >= 1000) {
@@ -17,6 +16,5 @@ export const findUser = (id:string) => {
   const foundUser = users.find((item) => {
     return item.id === id
   })
-
   return foundUser
 }

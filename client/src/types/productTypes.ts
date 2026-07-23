@@ -1,24 +1,25 @@
+import type { SizeStock } from "./createPostTypes"
+
 interface BaseProducts {
   id: string
   name:string
   likes: number
   images: string[]
   price: number
-  caption: string
   createdAt: string
   description: string
 }
 
 export interface Outfits extends BaseProducts {
   creatorId: string;
-  taggedProducts: string[];
+  taggedProducts: Products[];
   type: 'outfits';
 }
 
 export interface Products extends BaseProducts {
   brandId: string;
   category: string;
-  stock: number;
+  stock: SizeStock[];
   type: 'product';
 }
 
