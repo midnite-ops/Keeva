@@ -2,8 +2,9 @@ import {  useState } from "react";
 import OutfitCard from "../../components/app/OutfitCard";
 
 
-const AppFeed = () => {
 
+const AppFeed = () => {
+ 
   const feedFilter = ["For You", "Trending", "Following", "New", "Brands"];
   const [currentFeed, setCurrentFeed] = useState("For You");
   return (

@@ -3,6 +3,10 @@ import products from "../../data/products";
 import users from "../../data/users";
 
 export const initializeStorage = () => {
+  if (!localStorage.getItem("cart")) {
+    localStorage.setItem("cart", JSON.stringify([]));
+  }
+
   if (!localStorage.getItem("users")) {
     localStorage.setItem("users", JSON.stringify(users));
   }
@@ -27,5 +31,3 @@ export const saveStorage = <T>(key: string, data: T[]) => {
 export const getCurrentUserId = () => {
   return localStorage.getItem("currentUserId");
 };
-
-

@@ -14,34 +14,35 @@ import Role from "./pages/authentication/Role.tsx";
 import { AuthProvider } from "./context/AuthContext.tsx";
 import Explore from "./pages/app/Explore.tsx";
 import CreatePost from "./pages/app/CreatePost.tsx";
+import { CartProvider } from "./context/CartContext.tsx";
 // import HomePage from "./pages/HomePage.tsx";
 
 const App = () => (
   <AuthProvider>
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Waitlist />} />
-        {/* <Route path="/" element={<HomePage />} /> */}
-        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-        
-        <Route path="*" element={<NotFound />} />
+      <CartProvider>
+        <Routes>
+          <Route path="/" element={<Waitlist />} />
+          {/* <Route path="/" element={<HomePage />} /> */}
+          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
 
-        <Route element={<AuthLayout/>}>
-          <Route path="/auth/signup" element= {<SignUp />} />
-          <Route path= "/auth/login" element= {<Login />} />
-          <Route path= "/auth/role" element = {<Role />} />
-        
-        </Route>
+          <Route path="*" element={<NotFound />} />
 
-        <Route element={<AppLayout />}>
-          <Route path="/app/home" element= {<AppFeed />}/>
-          <Route path="app/explore" element= {<Explore />} />
-          <Route path="app/create-post" element= {<CreatePost/>} />
-        </Route>
-      </Routes>
+          <Route element={<AuthLayout />}>
+            <Route path="/auth/signup" element={<SignUp />} />
+            <Route path="/auth/login" element={<Login />} />
+            <Route path="/auth/role" element={<Role />} />
+          </Route>
+
+          <Route element={<AppLayout />}>
+            <Route path="/app/home" element={<AppFeed />} />
+            <Route path="app/explore" element={<Explore />} />
+            <Route path="app/create-post" element={<CreatePost />} />
+          </Route>
+        </Routes>
+      </CartProvider>
     </BrowserRouter>
   </AuthProvider>
-  
 );
 
 export default App;
