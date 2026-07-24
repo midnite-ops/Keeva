@@ -15,6 +15,7 @@ import { AuthProvider } from "./context/AuthContext.tsx";
 import Explore from "./pages/app/Explore.tsx";
 import CreatePost from "./pages/app/CreatePost.tsx";
 import { CartProvider } from "./context/CartContext.tsx";
+import ProtectedRoute from "./ProtectedRoute.tsx";
 // import HomePage from "./pages/HomePage.tsx";
 
 const App = () => (
@@ -33,11 +34,12 @@ const App = () => (
             <Route path="/auth/login" element={<Login />} />
             <Route path="/auth/role" element={<Role />} />
           </Route>
-
-          <Route element={<AppLayout />}>
-            <Route path="/app/home" element={<AppHome />} />
-            <Route path="app/explore" element={<Explore />} />
-            <Route path="app/create-post" element={<CreatePost />} />
+          <Route element={<ProtectedRoute />}>
+            <Route element={<AppLayout />}>
+              <Route path="/app/home" element={<AppHome />} />
+              <Route path="app/explore" element={<Explore />} />
+              <Route path="app/create-post" element={<CreatePost />} />
+            </Route>
           </Route>
         </Routes>
       </CartProvider>
