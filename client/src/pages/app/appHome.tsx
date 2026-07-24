@@ -1,9 +1,16 @@
 import {  useState } from "react";
-import OutfitCard from "../../components/app/OutfitCard";
+import PostCard from "../../components/app/PostCard";
+import { getStorage } from "../../utils/localStorage/initializeStorage";
+import type { Outfits, Products, ProductType } from "../../types/productTypes";
 
 
 
 const AppFeed = () => {
+  const outfits = getStorage<Outfits>('outfits')
+  const products = getStorage<Products>('products')
+
+  const posts:ProductType[] = [...outfits, ...products]
+  console.log(posts)
  
   const feedFilter = ["For You", "Trending", "Following", "New", "Brands"];
   const [currentFeed, setCurrentFeed] = useState("For You");
@@ -25,8 +32,8 @@ const AppFeed = () => {
           </div>
 
           <div className="overflow-y-scroll w-full flex gap-10 md:gap-10 flex-col no-scrollbar h-11/12 pb-70 md:pb-40 mt-15  md:mt-10">
-            {[1, 2, 34, 5].map(() => (
-              <OutfitCard />
+            {posts.map((item) => (
+              <PostCard key={item.id} data={item}/>
             ))}
           </div>
         </div>

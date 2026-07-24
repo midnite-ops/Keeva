@@ -4,8 +4,6 @@ import type { ProductFormData } from "../../../types/createPostTypes";
 import { productSearchLogic } from "../../../utils/searchLogic";
 import type { Products } from "../../../types/productTypes";
 import { findUser } from "../../../utils/user/findUser";
-import { getStorage } from "../../../utils/localStorage/initializeStorage";
-import { type Users } from "../../../types/userTypes";
 
 interface ProductDetailsStepProps {
   data: Pick<
@@ -17,8 +15,6 @@ interface ProductDetailsStepProps {
   onDeleteProduct: (id: string) => void;
   updatePrice: (price: number, event: string) => void;
 }
-
-const getUsers = getStorage<Users>("users");
 
 const inputClass =
   "w-full border border-neutral-200 rounded-lg px-3.5 py-2.5 text-sm text-black placeholder-neutral-400 focus:outline-none focus:border-black transition-colors bg-white";
