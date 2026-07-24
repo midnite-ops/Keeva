@@ -2,10 +2,12 @@ import {  useState } from "react";
 import PostCard from "../../components/app/PostCard";
 import { getStorage } from "../../utils/localStorage/initializeStorage";
 import type { Outfits, Products, ProductType } from "../../types/productTypes";
+import { getCurrentUser } from "../../utils/user/getCurrentUser";
 
 
 
-const AppFeed = () => {
+const AppHpme = () => {
+  console.log(getCurrentUser())
   const outfits = getStorage<Outfits>('outfits')
   const products = getStorage<Products>('products')
 
@@ -33,7 +35,7 @@ const AppFeed = () => {
 
           <div className="overflow-y-scroll w-full flex gap-10 md:gap-10 flex-col no-scrollbar h-11/12 pb-70 md:pb-40 mt-15  md:mt-10">
             {posts.map((item) => (
-              <PostCard key={item.id} data={item}/>
+              <PostCard key={item.id} data={item} currentUser = {getCurrentUser()!}/>
             ))}
           </div>
         </div>
@@ -61,4 +63,4 @@ const AppFeed = () => {
   );
 };
 
-export default AppFeed;
+export default AppHpme;

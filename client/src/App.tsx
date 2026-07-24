@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 // import { TooltipProvider } from "@/components/ui/tooltip";
 import Waitlist from "./pages/marketing/Waitlist.tsx";
 import NotFound from "./pages/marketing/NotFound.tsx";
-import AppFeed from "./pages/app/AppHome.tsx";
+import AppHome from "./pages/app/AppHome.tsx";
 import AppLayout from "./layout/AppLayout.tsx";
 import SignUp from "./pages/authentication/SignUp.tsx";
 import AuthLayout from "./layout/AuthLayout.tsx";
@@ -35,7 +35,7 @@ const App = () => (
           </Route>
 
           <Route element={<AppLayout />}>
-            <Route path="/app/home" element={<AppFeed />} />
+            <Route path="/app/home" element={<AppHome />} />
             <Route path="app/explore" element={<Explore />} />
             <Route path="app/create-post" element={<CreatePost />} />
           </Route>
