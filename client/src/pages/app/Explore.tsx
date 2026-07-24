@@ -4,11 +4,10 @@ import { Search, SlidersHorizontal } from "lucide-react";
 import type { Outfits, Products } from "../../types/productTypes";
 import type { Users } from "../../types/userTypes";
 
-
 import { ProductCard, ProfileCard } from "../../components/app/ProfileCards";
 
 import { searchLogic } from "../../utils/searchLogic";
-import { findUser } from "../../utils";
+import { findUser } from "../../utils/user/findUser";
 
 type SearchResult = Outfits | Products | Users;
 

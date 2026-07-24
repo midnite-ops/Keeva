@@ -10,7 +10,7 @@ import {
   ChevronDown,
   ChevronUp,
 } from "lucide-react";
-import { formatCount } from "../../utils";
+import { formatCount } from "../../utils/formatCount";
 
 const outfit = {
   id: "1",
@@ -43,15 +43,15 @@ export default function App() {
   const [likeCount, setLikeCount] = useState(outfit.likes);
   const [bought, setBought] = useState(false);
   const [showItems, setShowItems] = useState(false);
-  const [editPost, setEditPost] = useState(false)
+  const [editPost, setEditPost] = useState(false);
 
   function handleLike() {
     setLiked((prev) => !prev);
     setLikeCount((prev) => (liked ? prev - 1 : prev + 1));
   }
 
-  function edit(){
-    setEditPost((prev) => !prev)
+  function edit() {
+    setEditPost((prev) => !prev);
   }
 
   return (
@@ -113,10 +113,9 @@ export default function App() {
               </div>
             )}
             <button className="text-gray-400 hover:text-gray-700 transition-colors p-1 rounded-full hover:bg-gray-100">
-              <MoreHorizontal size={20} onClick={edit}/>
+              <MoreHorizontal size={20} onClick={edit} />
             </button>
           </div>
-          
         </div>
 
         {/* Image */}

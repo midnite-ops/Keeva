@@ -1,4 +1,4 @@
-import { getStorage } from "./initializeStorage";
+import { getStorage } from "../localStorage/initializeStorage";
 import type { Users } from "../../types/userTypes";
 
 export const getCurrentUser = () => {

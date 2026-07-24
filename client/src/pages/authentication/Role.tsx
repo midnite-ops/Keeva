@@ -3,7 +3,7 @@ import { Sparkles, Camera, ShoppingBag } from "lucide-react";
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
-import { createUser } from "../../utils/localStorage/users";
+import { createUser } from "../../utils/user/createUser";
 
 const roles = [
   {

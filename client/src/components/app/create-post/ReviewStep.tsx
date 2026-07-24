@@ -1,6 +1,6 @@
 import { CATEGORIES } from "../../../types/createPostTypes";
 import type { ProductFormData } from "../../../types/createPostTypes";
-import { findUser } from "../../../utils";
+import { findUser } from "../../../utils/user/findUser";
 
 interface ReviewStepProps {
   data: ProductFormData;
@@ -32,7 +32,8 @@ export default function ReviewStep({
           className="text-sm text-neutral-500"
           style={{ fontFamily: "Inter, system-ui, sans-serif" }}
         >
-          Everything look good? Confirm and publish your {role === 'brand' ? 'product' : 'outfit'}.
+          Everything look good? Confirm and publish your{" "}
+          {role === "brand" ? "product" : "outfit"}.
         </p>
       </div>
 
@@ -164,7 +165,9 @@ export default function ReviewStep({
                         {foundBrand?.username}
                       </p>
                     </div>
-                    <span className="flex-1 text-end font-semibold">${product.price}</span>
+                    <span className="flex-1 text-end font-semibold">
+                      ${product.price}
+                    </span>
                   </div>
                 );
               })}

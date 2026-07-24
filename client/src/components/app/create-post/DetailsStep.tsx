@@ -3,7 +3,7 @@ import { CATEGORIES } from "../../../types/createPostTypes";
 import type { ProductFormData } from "../../../types/createPostTypes";
 import { productSearchLogic } from "../../../utils/searchLogic";
 import type { Products } from "../../../types/productTypes";
-import { findUser } from "../../../utils";
+import { findUser } from "../../../utils/formatCount";
 import { getStorage } from "../../../utils/localStorage/initializeStorage";
 import { type Users } from "../../../types/userTypes";
 
@@ -14,8 +14,8 @@ interface ProductDetailsStepProps {
   >;
   onChange: (field: string, value: string | number | Products[]) => void;
   role: string;
-  onDeleteProduct: (id:string) => void
-  updatePrice: (price: number, event:string) => void
+  onDeleteProduct: (id: string) => void;
+  updatePrice: (price: number, event: string) => void;
 }
 
 const getUsers = getStorage<Users>("users");
@@ -31,7 +31,7 @@ export default function DetailsStep({
   role,
   onChange,
   onDeleteProduct,
-  updatePrice
+  updatePrice,
 }: ProductDetailsStepProps) {
   const [productSearch, setProductSearch] = useState("");
   const [onSearch, setOnSearch] = useState(false);
@@ -143,9 +143,15 @@ export default function DetailsStep({
                         className="text-foreground bg-background text-[10px]  px-2 py-0.5 rounded-full flex gap-2"
                       >
                         <p>{item.name}</p>
-                        <p className="cursor-pointer" onClick={() =>{ onDeleteProduct(item.id)
-                        updatePrice(item.price, '-')
-                        }}>x</p>
+                        <p
+                          className="cursor-pointer"
+                          onClick={() => {
+                            onDeleteProduct(item.id);
+                            updatePrice(item.price, "-");
+                          }}
+                        >
+                          x
+                        </p>
                       </div>
                     );
                   })}
@@ -161,7 +167,9 @@ export default function DetailsStep({
                   ) : (
                     searchResults.map((item) => {
                       const brand = findUser(item.id);
-                      const isDisabled = data.taggedProducts?.some((productItem) => productItem.id === item.id)
+                      const isDisabled = data.taggedProducts?.some(
+                        (productItem) => productItem.id === item.id,
+                      );
                       return (
                         <button
                           key={item.id}
@@ -173,7 +181,7 @@ export default function DetailsStep({
                               ...(data.taggedProducts ?? []),
                               item,
                             ];
-                            updatePrice(item.price, '+')
+                            updatePrice(item.price, "+");
                             onChange("taggedProducts", newArray);
                           }}
                           className={`flex items-center gap-3 ${isDisabled ? "opacity-70 cursor-not-allowed" : "cursor-pointer"}`}
@@ -203,7 +211,7 @@ export default function DetailsStep({
               className={labelClass}
               style={{ fontFamily: "Inter, system-ui, sans-serif" }}
             >
-             Total Price (USD)
+              Total Price (USD)
             </label>
             <div className="relative">
               <span
@@ -212,27 +220,34 @@ export default function DetailsStep({
               >
                 $
               </span>
-              {role === 'brand' ? <input
-                type="number"
-                min="0"
-                step="0.01"
-                value={data.price}
-                onChange={(e) => handleChange("price", Number(e.target.value))}
-                placeholder="0.00"
-                className={`${inputClass} pl-7`}
-                style={{ fontFamily: "Inter, system-ui, sans-serif" }}
-              /> : <input
-                type="number"
-                disabled
-                min="0"
-                step="0.01"
-                value={data.price}
-                onChange={(e) => handleChange("price", Number(e.target.value))}
-                placeholder="0.00"
-                className={`${inputClass} pl-7`}
-                style={{ fontFamily: "Inter, system-ui, sans-serif" }}
-              />}
-              
+              {role === "brand" ? (
+                <input
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  value={data.price}
+                  onChange={(e) =>
+                    handleChange("price", Number(e.target.value))
+                  }
+                  placeholder="0.00"
+                  className={`${inputClass} pl-7`}
+                  style={{ fontFamily: "Inter, system-ui, sans-serif" }}
+                />
+              ) : (
+                <input
+                  type="number"
+                  disabled
+                  min="0"
+                  step="0.01"
+                  value={data.price}
+                  onChange={(e) =>
+                    handleChange("price", Number(e.target.value))
+                  }
+                  placeholder="0.00"
+                  className={`${inputClass} pl-7`}
+                  style={{ fontFamily: "Inter, system-ui, sans-serif" }}
+                />
+              )}
             </div>
           </div>
         </div>

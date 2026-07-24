@@ -5,10 +5,9 @@ import ImageUploadStep from "../../components/app/create-post/ImageUploadStep";
 import DetailsStep from "../../components/app/create-post/DetailsStep";
 import InventoryStep from "../../components/app/create-post/InventoryStep";
 import ReviewStep from "../../components/app/create-post/ReviewStep";
-import { getCurrentUser } from "../../utils/localStorage/getCurrentUser";
+import { getCurrentUser } from "../../utils/user/getCurrentUser";
 import type { Products } from "../../types/productTypes";
-import { createPost } from "../../utils/localStorage/createPost";
-import { getStorage } from "../../utils/localStorage/initializeStorage";
+import { createPost } from "../../utils/posts/createPost";
 
 const EMPTY: ProductFormData = {
   images: [],
@@ -47,35 +46,34 @@ export default function AddPost() {
   const [coverPreview, setCoverPreview] = useState<string | null>(null);
 
   const handleCreatePost = () => {
-    setPublished(true)
+    setPublished(true);
     if (!currentUser) {
-    return;
-  }
-    createPost(form, currentUser?.role, currentUser.id)
-  }
-  const updateField = (
-    field: string,
-    value: string | number | Products[]
-  ) => {
+      return;
+    }
+    createPost(form, currentUser?.role, currentUser.id);
+  };
+  const updateField = (field: string, value: string | number | Products[]) => {
     setForm((prev) => ({
       ...prev,
       [field]: value,
     }));
   };
 
- const deleteTaggedProduct = (id:string) => {
-    setForm((prev) => ({...prev, taggedProducts: prev.taggedProducts?.filter((item) => item.id !== id)}))
-  }
+  const deleteTaggedProduct = (id: string) => {
+    setForm((prev) => ({
+      ...prev,
+      taggedProducts: prev.taggedProducts?.filter((item) => item.id !== id),
+    }));
+  };
 
-  const updatePrice = (price: number, event:string) => {
-    if(event === '+'){
-      setForm((prev) => ({...prev, price: (prev.price + price)}))
+  const updatePrice = (price: number, event: string) => {
+    if (event === "+") {
+      setForm((prev) => ({ ...prev, price: prev.price + price }));
     }
-    if(event === '-'){
-      setForm((prev) => ({...prev, price: (prev.price - price)}))
+    if (event === "-") {
+      setForm((prev) => ({ ...prev, price: prev.price - price }));
     }
-    
-  }
+  };
 
   const handleImages = (images: typeof form.images) => {
     setForm((prev) => ({
@@ -83,11 +81,7 @@ export default function AddPost() {
       images,
     }));
 
-    setCoverPreview(
-      images.length > 0
-        ? URL.createObjectURL(images[0])
-        : null
-    );
+    setCoverPreview(images.length > 0 ? URL.createObjectURL(images[0]) : null);
   };
 
   const canAdvance = () => {
@@ -98,9 +92,7 @@ export default function AddPost() {
     if (step === 2) {
       if (isBrand) {
         return (
-          form.name.trim() !== "" &&
-          form.category !== "" &&
-          form.price !== 0
+          form.name.trim() !== "" && form.category !== "" && form.price !== 0
         );
       }
 
@@ -122,15 +114,11 @@ export default function AddPost() {
   const handleNext = () => {
     if (!canAdvance()) return;
 
-    setStep((currentStep) =>
-      Math.min(totalSteps, currentStep + 1)
-    );
+    setStep((currentStep) => Math.min(totalSteps, currentStep + 1));
   };
 
   const handleBack = () => {
-    setStep((currentStep) =>
-      Math.max(1, currentStep - 1)
-    );
+    setStep((currentStep) => Math.max(1, currentStep - 1));
   };
 
   const handleReset = () => {
@@ -148,12 +136,7 @@ export default function AddPost() {
       <div className="min-h-screen bg-white flex items-center justify-center px-6">
         <div className="text-center w-full max-w-sm">
           <div className="w-16 h-16 rounded-full bg-black flex items-center justify-center mx-auto mb-6">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-            >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
               <path
                 d="M4 12l5 5 11-10"
                 stroke="white"
@@ -167,13 +150,10 @@ export default function AddPost() {
           <h2
             className="text-3xl font-semibold text-black mb-3"
             style={{
-              fontFamily:
-                "'Playfair Display', Georgia, serif",
+              fontFamily: "'Playfair Display', Georgia, serif",
             }}
           >
-            {isBrand
-              ? "Product Published"
-              : "Outfit Published"}
+            {isBrand ? "Product Published" : "Outfit Published"}
           </h2>
 
           <p
@@ -182,10 +162,7 @@ export default function AddPost() {
               fontFamily: "Inter, system-ui, sans-serif",
             }}
           >
-            <strong className="text-black">
-              {form.name}
-            </strong>{" "}
-            is now live.
+            <strong className="text-black">{form.name}</strong> is now live.
           </p>
 
           <button
@@ -204,7 +181,6 @@ export default function AddPost() {
       {/* Sticky top navigation */}
       <div className="sticky top-0 z-10 bg-white/95 backdrop-blur-sm border-b border-neutral-100">
         <div className="max-w-2xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-4">
-
           {/* Back */}
           <button
             type="button"
@@ -212,12 +188,7 @@ export default function AddPost() {
             disabled={step === 1}
             className="flex items-center gap-1.5 text-sm font-medium text-neutral-500 hover:text-black disabled:opacity-0 disabled:pointer-events-none transition-colors"
           >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-            >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
               <path
                 d="M10 3L5 8l5 5"
                 stroke="currentColor"
@@ -227,9 +198,7 @@ export default function AddPost() {
               />
             </svg>
 
-            <span className="hidden sm:inline">
-              Back
-            </span>
+            <span className="hidden sm:inline">Back</span>
           </button>
 
           {/* Step label */}
@@ -245,13 +214,7 @@ export default function AddPost() {
               className="flex items-center gap-1.5 px-4 sm:px-5 py-2 bg-black text-white text-sm font-medium rounded-full hover:bg-neutral-800 transition-colors"
             >
               Publish
-
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 16 16"
-                fill="none"
-              >
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
                 <path
                   d="M2 8h12M9 3l5 5-5 5"
                   stroke="currentColor"
@@ -269,13 +232,7 @@ export default function AddPost() {
               className="flex items-center gap-1.5 px-4 sm:px-5 py-2 bg-black text-white text-sm font-medium rounded-full hover:bg-neutral-800 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
             >
               Continue
-
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 16 16"
-                fill="none"
-              >
+              <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
                 <path
                   d="M6 3l5 5-5 5"
                   stroke="currentColor"
@@ -291,27 +248,20 @@ export default function AddPost() {
 
       {/* Main content */}
       <div className="max-w-2xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-
         {/* Heading */}
         <div className="mb-8 sm:mb-10">
           <p className="text-xs font-medium text-neutral-400 uppercase tracking-widest mb-1">
             {isBrand ? "Add Product" : "Add Outfit"}
           </p>
 
-          <h2 className="text-foreground">
-            New Post
-          </h2>
+          <h2 className="text-foreground">New Post</h2>
         </div>
 
         {/* Step indicator */}
-        <StepHeader
-          steps={STEPS}
-          currentStep={step}
-        />
+        <StepHeader steps={STEPS} currentStep={step} />
 
         {/* Step content */}
-        <div className="min-h-[320px]">
-
+        <div className="min-h-80">
           {/* Step 1: Images */}
           {step === 1 && (
             <ImageUploadStep
@@ -340,7 +290,7 @@ export default function AddPost() {
                     }
               }
               onDeleteProduct={deleteTaggedProduct}
-              updatePrice= {updatePrice}
+              updatePrice={updatePrice}
               onChange={updateField}
               role={currentUser?.role ?? "creator"}
             />

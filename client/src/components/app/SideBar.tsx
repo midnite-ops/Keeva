@@ -8,7 +8,7 @@ import {
   PlusSquare,
   Bookmark,
 } from "lucide-react";
-import { formatCount } from "../../utils";
+import { formatCount } from "../../utils/formatCount";
 import { getStorage } from "../../utils/localStorage/initializeStorage";
 import type { Users } from "../../types/userTypes";
 
@@ -78,8 +78,8 @@ const SideBar = () => {
         <h3 className="text-foreground">Top Creators</h3>
         <ul className="flex gap-5 flex-col mt-5">
           {creators.map((item, index) => {
-            if(index === 3){
-              return
+            if (index === 3) {
+              return;
             }
             return (
               <li className="flex gap-2 cursor-pointer">
