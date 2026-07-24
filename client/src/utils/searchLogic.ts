@@ -11,7 +11,7 @@ const productsData = getStorage<Products>('products')
 const usersData = getStorage<Users>('users')
 
 const data: Data[] = [...outfitData, ...productsData, ...usersData];
-console.log(productsData)
+console.log(usersData)
 
 export const searchLogic = (
   filters: string,

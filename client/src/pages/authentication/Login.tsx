@@ -1,36 +1,51 @@
-import { useState } from 'react';
-import { Divider } from '../../components/authentication';
-import { EyeOff,Eye, ArrowRight } from 'lucide-react';
-import { Field, SocialButton } from '../../components/authentication';
-import { useAuth } from '../../context/AuthContext';
-import { Link, useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import { Divider } from "../../components/authentication";
+import { EyeOff, Eye, ArrowRight } from "lucide-react";
+import { Field, SocialButton } from "../../components/authentication";
+import { useAuth } from "../../context/AuthContext";
+import { Link, useNavigate } from "react-router-dom";
+import { loginUser } from "../../utils/user/loginUser";
 
 const Login = () => {
+  const [showPass, setShowPass] = useState(false);
+  const { loginData, setLoginData } = useAuth();
+  const [error, setError] = useState<boolean>(false);
+  const navigate = useNavigate();
+  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!loginData.email.trim() || !loginData.password.trim()) return;
+    const existingUser = loginUser(loginData.email, loginData.password);
+    if (!existingUser) {
+      setError(true);
+      setTimeout(() => {
+        setError(false);
+      }, 3000);
 
-    const [showPass, setShowPass] = useState(false);
-    const { loginData, setLoginData } = useAuth()
-    const navigate = useNavigate()
-    const handleLogin = (e:React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        if(!loginData.email.trim() || !loginData.password.trim()) return
-        navigate('/app/feed')
+      return;
     }
+    navigate("/app/home");
+  };
   return (
-    < >
-      <h2 className="font-serif text-2xl select-none tracking-[0.2em]">KEEVA</h2>
-      <h1 className="text-3xl font-semibold text-gray-900 mt-5 mb-1 leading-tight">Welcome back</h1>
-      <p className="text-sm text-gray-400 mb-8">Log in to your account to continue.</p>
+    <>
+      <h2 className="font-serif text-2xl select-none tracking-[0.2em]">
+        KEEVA
+      </h2>
+      <h1 className="text-3xl font-semibold text-gray-900 mt-5 mb-1 leading-tight">
+        Welcome back
+      </h1>
+      <p className="text-sm text-gray-400 mb-8">
+        Log in to your account to continue.
+      </p>
 
-      <form
-        className="flex flex-col gap-5"
-        onSubmit={(e) => handleLogin(e)}
-      >
+      <form className="flex flex-col gap-5" onSubmit={(e) => handleLogin(e)}>
         <Field label="Email">
           <input
             type="email"
             placeholder="sofia@example.com"
             value={loginData.email}
-            onChange={(e) => setLoginData((f) => ({ ...f, email: e.target.value }))}
+            onChange={(e) =>
+              setLoginData((f) => ({ ...f, email: e.target.value }))
+            }
             required
             className="w-full px-4 py-3 rounded-xl text-sm text-gray-900 outline-none transition-all"
             style={{ background: "#f9f8f6", border: "1.5px solid #eeeae4" }}
@@ -45,7 +60,9 @@ const Login = () => {
               type={showPass ? "text" : "password"}
               placeholder="Your password"
               value={loginData.password}
-              onChange={(e) => setLoginData((f) => ({ ...f, password: e.target.value }))}
+              onChange={(e) =>
+                setLoginData((f) => ({ ...f, password: e.target.value }))
+              }
               required
               className="w-full px-4 py-3 pr-11 rounded-xl text-sm text-gray-900 outline-none transition-all"
               style={{ background: "#f9f8f6", border: "1.5px solid #eeeae4" }}
@@ -61,7 +78,10 @@ const Login = () => {
             </button>
           </div>
           <div className="flex justify-end">
-            <button type="button" className="text-xs text-gray-400 hover:text-gray-700 transition-colors">
+            <button
+              type="button"
+              className="text-xs text-gray-400 hover:text-gray-700 transition-colors"
+            >
               Forgot password?
             </button>
           </div>
@@ -74,6 +94,11 @@ const Login = () => {
         >
           Log in <ArrowRight size={15} />
         </button>
+        {error && (
+          <div className="text-red-800 font-semibold text-sm">
+            Invalid Credentials, try again
+          </div>
+        )}
       </form>
 
       <Divider />
@@ -84,14 +109,15 @@ const Login = () => {
 
       <p className="text-xs text-center text-gray-400 mt-6">
         Don&apos;t have an account?{" "}
-        <Link to={'/auth/signup'}
+        <Link
+          to={"/auth/signup"}
           className="font-semibold text-gray-900 hover:underline underline-offset-2"
         >
           Sign up free
         </Link>
       </p>
     </>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

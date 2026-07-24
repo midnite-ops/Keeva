@@ -3,7 +3,7 @@ import { CATEGORIES } from "../../../types/createPostTypes";
 import type { ProductFormData } from "../../../types/createPostTypes";
 import { productSearchLogic } from "../../../utils/searchLogic";
 import type { Products } from "../../../types/productTypes";
-import { findUser } from "../../../utils/formatCount";
+import { findUser } from "../../../utils/user/findUser";
 import { getStorage } from "../../../utils/localStorage/initializeStorage";
 import { type Users } from "../../../types/userTypes";
 
