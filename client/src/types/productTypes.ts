@@ -1,28 +1,26 @@
-export interface Outfits {
-  id: string;
-  creatorId: string;
-  image: string[];
-  caption: string;
-  taggedProducts: string[];
-  likes: number;
-  time: string;
-  name: string;
-  type: 'outfits';
-  price: number;
-  createdAt: string;
+import type { SizeStock } from "./createPostTypes"
+
+interface BaseProducts {
+  id: string
+  name:string
+  likes: number
+  images: string[]
+  price: number
+  createdAt: string
+  description: string
 }
 
-export interface Products {
-  id: string;
+export interface Outfits extends BaseProducts {
+  creatorId: string;
+  taggedProducts: Products[];
+  type: 'outfits';
+}
+
+export interface Products extends BaseProducts {
   brandId: string;
-  caption: string;
-  description: string;
   category: string;
-  name: string;
-  price: number;
-  images: string[];
-  stock: number;
-  likes: number;
-  createdAt: string;
+  stock: SizeStock[];
   type: 'product';
 }
+
+export type ProductType = Outfits | Products

@@ -1,10 +1,17 @@
-import users from "../data/users";
-import outfits from "../data/outfits";
-import products from "../data/products";
+import { getStorage } from "./localStorage/initializeStorage";
+import type { Outfits, Products, ProductType } from "../types/productTypes";
+
+import type { Users } from "../types/userTypes";
 
 // type Data = Outfits | Users | Products;
+type Data = ProductType | Users
 
-const data = [...outfits, ...products, ...users];
+const outfitData = getStorage<Outfits>('outfits')
+const productsData = getStorage<Products>('products')
+const usersData = getStorage<Users>('users')
+
+const data: Data[] = [...outfitData, ...productsData, ...usersData];
+console.log(usersData)
 
 export const searchLogic = (
   filters: string,
@@ -29,7 +36,7 @@ export const searchLogic = (
 
     if (filters === "All") {
       if (item.type === "product") {
-        return item.category.toLowerCase().includes(query);
+        return item.name.toLowerCase().includes(query);
       }
 
       if (item.type === "outfits") {
@@ -40,3 +47,12 @@ export const searchLogic = (
     return false;
   });
 };
+
+export const productSearchLogic = (name:string) => {
+  const query = name.toLowerCase().trim()
+  const data = productsData.filter((item) => {
+    return item.name.toLowerCase().includes(query)
+  })
+
+  return data
+}

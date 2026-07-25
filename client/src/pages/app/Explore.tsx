@@ -4,12 +4,10 @@ import { Search, SlidersHorizontal } from "lucide-react";
 import type { Outfits, Products } from "../../types/productTypes";
 import type { Users } from "../../types/userTypes";
 
-import users from "../../data/users";
-
 import { ProductCard, ProfileCard } from "../../components/app/ProfileCards";
 
 import { searchLogic } from "../../utils/searchLogic";
-import { findUser } from "../../utils";
+import { findUser } from "../../utils/user/findUser";
 
 type SearchResult = Outfits | Products | Users;
 
@@ -173,31 +171,41 @@ export default function Explore() {
           <div className="columns-2 lg:columns-3 gap-2 md:gap-4 mt-10">
             {displaySearch.map((item) => (
               <div key={item.id} className="mb-4 break-inside-avoid">
-                {item.type === "outfits" && (
-                  <ProductCard
-                    id={item.id}
-                    creatorId={item.creatorId}
-                    productImage={item.image[0]}
-                    price={item.price}
-                    likes={item.likes}
-                    username={findUser(item.creatorId, users)[0].username}
-                    profilePic={findUser(item.creatorId, users)[0].profilePic}
-                    type="outfit"
-                  />
-                )}
+                {item.type === "outfits" &&
+                  (() => {
+                    const creator = findUser(item.creatorId);
 
-                {item.type === "product" && (
-                  <ProductCard
-                    id={item.id}
-                    brandId={item.brandId}
-                    productImage={item.images[0]}
-                    price={item.price}
-                    likes={item.likes}
-                    username={findUser(item.brandId, users)[0].username}
-                    profilePic={findUser(item.brandId, users)[0].profilePic}
-                    type="product"
-                  />
-                )}
+                    return (
+                      <ProductCard
+                        id={item.id}
+                        creatorId={item.creatorId}
+                        productImage={item.images}
+                        price={item.price}
+                        likes={item.likes}
+                        username={creator?.username}
+                        profilePic={creator?.profilePic!}
+                        type="outfit"
+                      />
+                    );
+                  })()}
+
+                {item.type === "product" &&
+                  (() => {
+                    const brand = findUser(item.brandId);
+
+                    return (
+                      <ProductCard
+                        id={item.id}
+                        brandId={item.brandId}
+                        productImage={item.images}
+                        price={item.price}
+                        likes={item.likes}
+                        username={brand?.username}
+                        profilePic={brand?.profilePic!}
+                        type="product"
+                      />
+                    );
+                  })()}
               </div>
             ))}
           </div>

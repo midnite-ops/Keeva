@@ -1,99 +1,123 @@
-import { useState } from "react"
-import { Link } from "react-router"
-import { ShoppingBag, Home, Search, Bell, PlusSquare, Bookmark  } from "lucide-react"
-import users from '../../data/users';
-import { formatCount } from "../../utils";
-import { useAuth } from "../../context/AuthContext";
-
+import { useState } from "react";
+import { Link } from "react-router";
+import {
+  ShoppingBag,
+  Home,
+  Search,
+  Bell,
+  PlusSquare,
+  Bookmark,
+} from "lucide-react";
+import { formatCount } from "../../utils/formatCount";
+import { getStorage } from "../../utils/localStorage/initializeStorage";
+import type { Users } from "../../types/userTypes";
 
 const SideBar = () => {
-    const [activeLink, setActiveLink] = useState(window.location.pathname)
-    console.log(window.location.pathname)
-    const creators = users.filter((item) => item.role === 'creator')
-    const {signupData} = useAuth()
-    const sidebarLinks = [
-        {
-            title: 'Home',
-            link: '/app/home',
-            icon: Home
-        },
-        {
-            title: "Explore",
-            link: '/app/explore',
-            icon: Search
-        },
-        
-        {
-            title: 'Notifications',
-            link: '/app/notifications',
-            icon: Bell
-        },
-        {
-            title: 'Add Post',
-            link: '/app/post',
-            icon: PlusSquare
-        },
-        {
-            title: 'Saved',
-            link: '/app/saved',
-            icon: Bookmark
-        },
-        {
-            title: 'Cart',
-            link: '/app/cart',
-            icon: ShoppingBag
-        }
-    ]
+  const [activeLink, setActiveLink] = useState(window.location.pathname);
+  const users = getStorage<Users>("users");
+  const creators = users.filter((item) => item.role === "creator");
+  const currentUserId = localStorage.getItem("currentUserId");
+  const currentUser = users.find((user) => user.id === currentUserId!);
+  const sidebarLinks = [
+    {
+      title: "Home",
+      link: "/app/home",
+      icon: Home,
+    },
+    {
+      title: "Explore",
+      link: "/app/explore",
+      icon: Search,
+    },
+
+    {
+      title: "Notifications",
+      link: "/app/notifications",
+      icon: Bell,
+    },
+    {
+      title: "Add Post",
+      link: "/app/create-post",
+      icon: PlusSquare,
+    },
+    {
+      title: "Saved",
+      link: "/app/saved",
+      icon: Bookmark,
+    },
+    {
+      title: "Cart",
+      link: "/app/cart",
+      icon: ShoppingBag,
+    },
+  ];
   return (
-    <section className='hidden  md:flex flex-col border-r border-subtitleText/25 w-50 pb-10 px-5 pt-10 '>
-        <ul className="flex flex-col gap-2 font-semibold border-b border-subtitleText/25 pb-5 mb-5">
-            {sidebarLinks.map((item) =>
-                signupData.role === "customer" && item.title === "Add Post" ? null : (
-                    <Link
-                    key={item.title}
-                    to={item.link}
-                    className={`${
-                        activeLink === item.link
-                        ? "bg-bgBlack text-background"
-                        : "text-subtitleText"
-                    } cursor-pointer flex items-center gap-2 py-2 px-4 rounded-lg`}
-                    onClick={() => setActiveLink(item.link)}
-                    >
-                    <item.icon size={20} />
-                    {item.title}
-                    </Link>
-                )
-            )}
-        </ul>
+    <section className="hidden  md:flex flex-col border-r border-subtitleText/25 w-50 pb-10 px-5 pt-10 ">
+      <ul className="flex flex-col gap-2 font-semibold border-b border-subtitleText/25 pb-5 mb-5">
+        {sidebarLinks.map((item) =>
+          currentUser!.role === "customer" &&
+          item.title === "Add Post" ? null : (
+            <Link
+              key={item.title}
+              to={item.link}
+              className={`${
+                activeLink === item.link
+                  ? "bg-bgBlack text-background"
+                  : "text-subtitleText"
+              } cursor-pointer flex items-center gap-2 py-2 px-4 rounded-lg`}
+              onClick={() => setActiveLink(item.link)}
+            >
+              <item.icon size={20} />
+              {item.title}
+            </Link>
+          ),
+        )}
+      </ul>
 
-        <div>
-            <h3 className="text-foreground">Top Creators</h3>
-            <ul className="flex gap-5 flex-col mt-5">
-                {creators.map((item) => (
-                    <li className="flex gap-2 cursor-pointer">
-                        <div className="size-10 rounded-full">
-                            <img src={item.profilePic} alt="picture" className="rounded-full w-full h-full object-cover object-top"/>
-                        </div>
-                        <div>
-                            <h4 className="text-sm text-foreground font-semibold">{item.name}</h4>
-                            <p className="text-xs text-subtitleText">{`${formatCount(item.followers!)}k Followers`}</p>
-                        </div>
-                    </li>
-                ))}
-            </ul>
-        </div>
-
-        <div className="flex-1 items-end flex">
-            <div className="flex gap-2 items-center border-t border-subtitleText/25 w-full pt-5">
-                <div className="size-8 ">
-                    <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=80&h=80&fit=crop&auto=format" alt="" className="rounded-full"/>
+      <div>
+        <h3 className="text-foreground">Top Creators</h3>
+        <ul className="flex gap-5 flex-col mt-5">
+          {creators.map((item, index) => {
+            if (index === 3) {
+              return;
+            }
+            return (
+              <li className="flex gap-2 cursor-pointer">
+                <div className="size-10 rounded-full">
+                  <img
+                    src={item.profilePic}
+                    alt="picture"
+                    className="rounded-full w-full h-full object-cover object-top"
+                  />
                 </div>
-                <h4 className="text-sm text-foreground font-semibold cursor-pointer">Account</h4>
-            </div>
-            
-        </div>
-    </section>
-  )
-}
+                <div>
+                  <h4 className="text-sm text-foreground font-semibold">
+                    {item.name}
+                  </h4>
+                  <p className="text-xs text-subtitleText">{`${formatCount(item.followers!)}k Followers`}</p>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
 
-export default SideBar
+      <div className="flex-1 items-end flex">
+        <div className="flex gap-2 items-center border-t border-subtitleText/25 w-full pt-5">
+          <div className="size-8 ">
+            <img
+              src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=80&h=80&fit=crop&auto=format"
+              alt=""
+              className="rounded-full"
+            />
+          </div>
+          <h4 className="text-sm text-foreground font-semibold cursor-pointer">
+            Account
+          </h4>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default SideBar;
