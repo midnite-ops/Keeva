@@ -162,7 +162,7 @@ export default function DetailsStep({
                     </p>
                   ) : (
                     searchResults.map((item) => {
-                      const brand = findUser(item.id);
+                      const brand = findUser(item.brandId);
                       const isDisabled = data.taggedProducts?.some(
                         (productItem) => productItem.id === item.id,
                       );
