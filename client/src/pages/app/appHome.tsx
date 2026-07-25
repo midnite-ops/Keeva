@@ -6,8 +6,7 @@ import { getCurrentUser } from "../../utils/user/getCurrentUser";
 
 
 
-const AppHpme = () => {
-  console.log(getCurrentUser())
+const AppHome = () => {
   const outfits = getStorage<Outfits>('outfits')
   const products = getStorage<Products>('products')
 
@@ -63,4 +62,4 @@ const AppHpme = () => {
   );
 };
 
-export default AppHpme;
+export default AppHome;
