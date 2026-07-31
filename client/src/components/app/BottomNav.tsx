@@ -21,7 +21,7 @@ const BottomNav = () => {
         },
         {
             icon: Bell ,
-            link: '/app/notification'
+            link: '/app/notifications'
         },
         {
             icon: User2 ,

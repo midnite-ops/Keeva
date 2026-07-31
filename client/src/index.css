@@ -123,6 +123,9 @@
   .section-scrolling{
     @apply pb-70 md:pb-40 md:mt-10
   }
+  .section-spacing{
+    @apply px-5 md:px-5 lg:px-0 pt-10 pb-70 md:pb-40 h-screen
+  }
   
 }
 
