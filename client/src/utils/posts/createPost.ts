@@ -1,6 +1,8 @@
 import { type ProductFormData } from "../../types/createPostTypes";
 import type { Outfits, Products } from "../../types/productTypes";
+import {type Users } from "../../types/userTypes";
 import { getStorage, saveStorage } from "../localStorage/initializeStorage";
+import { getCurrentUser } from "../user/getCurrentUser";
 export const createPost = async (
   form: ProductFormData,
   role: "brand" | "creator" | "customer",
@@ -8,6 +10,8 @@ export const createPost = async (
 ) => {
   const products = getStorage<Products>("products");
   const outfits = getStorage<Outfits>("outfits");
+  const users = getStorage<Users>('users')
+  const currentUser = getCurrentUser()
   const imageUrl = form.images.map((file) => URL.createObjectURL(file));
   if (role === "brand") {
     const newProduct: Products = {
@@ -24,7 +28,13 @@ export const createPost = async (
       createdAt: new Date().toISOString(),
     };
     // Save product
+
+    currentUser!.role === 'brand' ? currentUser?.products.push(newProduct) : null
+
+    const pushProducts = users.map((user) => user.id === currentUser?.id ? currentUser : user)
+
     products.push(newProduct);
+    saveStorage("users", pushProducts)
     saveStorage("products", products);
     return newProduct;
   }
@@ -40,8 +50,13 @@ export const createPost = async (
     likes: 0,
     createdAt: new Date().toISOString(),
     type: "outfits",
-  };
+  }
+  currentUser!.role === 'creator' ? currentUser?.outfits.push(newOutfit) : null
+
+    const pushOutfits = users.map((user) => user.id === currentUser?.id ? currentUser : user)
+
   outfits.push(newOutfit);
+  saveStorage("users", pushOutfits)
   saveStorage("outfits", outfits);
   // Save outfit
   return newOutfit;

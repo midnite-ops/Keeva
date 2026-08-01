@@ -34,6 +34,15 @@ const Notifications = () => {
         time: "30 seconds ago",
         read: false,
       },
+      {
+        id: "order-3",
+        type: "order",
+        productName: "Linen Wrap Dress (M)",
+        price: "$129.00",
+        status: "placed",
+        time: "2 hours ago",
+        read: false,
+      },
     ],
 
     trending: [
@@ -56,6 +65,14 @@ const Notifications = () => {
         time: "1 day ago",
         read: false,
       },
+      {
+        id: "restock-4",
+        type: "restock",
+        productName: "White Poplin Shirt",
+        size: "S",
+        time: "1 day ago",
+        read: false,
+      }
     ],
   });
   const markAsRead = (id: string) => {
@@ -76,7 +93,7 @@ const Notifications = () => {
     if(notifications !== null){
       return Object.entries(notifications).map(([category, items]) => {
       return (
-        <div key={category} className="flex flex-col gap-10 mt-10 overflow-y-scroll">
+        <div key={category} className="flex flex-col gap-10 mt-10 ">
           {items.map((item) => {
             if (item.type === "trending") {
               return (
@@ -155,8 +172,11 @@ const Notifications = () => {
 
   return (
     <section className="section-spacing text-foreground">
-      <h2 className="">Notifications</h2>
-      {renderNotifications()}
+      <h2 className="md:pb-5">Notifications</h2>
+      <div className="h-screen no-scrollbar overflow-y-scroll pb-70  md:pb-60">
+        {renderNotifications()}
+      </div>
+      
     </section>
   );
 };
