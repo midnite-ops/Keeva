@@ -1,12 +1,10 @@
-import AccountProfile from "../../components/app/account/AccountProfile";
-import { getCurrentUser } from "../../utils/user/getCurrentUser";
+import AccountProfile from './AccountProfile'
+import { getStorage } from '../../../utils/localStorage/initializeStorage'
+import type { Users } from '../../../types/userTypes'
 
-
-
-
-const Account = () => {
-    const user = getCurrentUser()
-    console.log(user)
+const FindUser = () => {
+  const user = getStorage<Users>('users').find((user) => user.id === window.location.pathname.split('/')[4])
+    console.log(user, getStorage('products'))
     if(!user){
         return
     }
@@ -22,4 +20,4 @@ const Account = () => {
     )
 }
 
-export default Account
+export default FindUser

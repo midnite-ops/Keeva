@@ -16,6 +16,7 @@ import { formatCount } from "../../utils/formatCount";
 import type { ProductType } from "../../types/productTypes";
 import { findUser } from "../../utils/user/findUser";
 import type { Users } from "../../types/userTypes";
+import { useNavigate } from "react-router-dom";
 
 const outfit = {
   id: "1",
@@ -52,6 +53,7 @@ export default function PostCard({ data, currentUser }: OutfitCardProps) {
   const [bought, setBought] = useState(false);
   const [showItems, setShowItems] = useState(false);
   const [editPost, setEditPost] = useState(false);
+  const navigate = useNavigate()
 
   // Tracks the currently visible image
   const [currentImage, setCurrentImage] = useState(0);
@@ -125,7 +127,7 @@ export default function PostCard({ data, currentUser }: OutfitCardProps) {
       >
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-3">
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-2.5" onClick={() => navigate(`/app/user/account/${user!.id}`)}>
             <div className="relative">
               <div
                 className="absolute rounded-full"

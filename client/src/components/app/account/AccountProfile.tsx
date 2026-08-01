@@ -421,7 +421,7 @@ const ProfileStat = ({
 }: ProfileStatProps) => {
   return (
     <div className="flex flex-col gap-1 items-center text-foreground justify-center">
-      <h3 className="text-2xl">
+      <h3 className="text-xl md:text-2xl">
         {value}
       </h3>
 
