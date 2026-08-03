@@ -363,7 +363,7 @@ const AccountProfile = ({
                 outfits.map((outfit) => (
                   <div key={outfit.id}>
                     <img
-                      src={outfit.images?.[0]}
+                      src={outfit.images![0]}
                       alt="Creator outfit"
                       className="w-full aspect-square object-cover"
                     />
@@ -386,7 +386,7 @@ const AccountProfile = ({
                 taggedProducts.map((product) => (
                   <div key={product.id}>
                     <img
-                      src={product.images?.[0]}
+                      src={product.images[0]}
                       alt={product.name}
                       className="w-full aspect-square object-cover"
                     />

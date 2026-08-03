@@ -153,7 +153,7 @@ export default function PostCard({ data, currentUser }: OutfitCardProps) {
             <div className="cursor-pointer">
               <div className="flex items-center gap-1">
                 <span className="text-sm font-semibold text-gray-900 leading-none">
-                  {user?.username}
+                  {user?.name}
                 </span>
 
                 {true && (
@@ -465,3 +465,5 @@ export default function PostCard({ data, currentUser }: OutfitCardProps) {
     </div>
   );
 }
+
+//losene kanneh

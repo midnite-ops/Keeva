@@ -21,7 +21,7 @@ const data: Users[] = [
     outfits: [
       {
         images: [
-          '"https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"',
+          "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=774&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         ],
          name: "",
          description: 'fsdac',
@@ -57,7 +57,7 @@ const data: Users[] = [
     outfits: [
       {
         images: [
-          '"https://images.unsplash.com/photo-1580489944761-15a19d654956?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZSUyMHBpY3R1cmV8ZW58MHx8MHx8fDA%3D"',
+          "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZSUyMHBpY3R1cmV8ZW58MHx8MHx8fDA%3D"
         ],
         name: "",
          description: 'fsdac',
@@ -95,7 +95,7 @@ const data: Users[] = [
         id: 'hf',
         name: 'Gucci ',
         likes: 0,
-        images: [''],
+        images: ['https://images.unsplash.com/photo-1731589802397-6a1088d63630?w=200&h=260&fit=crop&auto=format'],
         price: 0,
         createdAt: '',
         description: 'fsdac',
@@ -129,7 +129,7 @@ const data: Users[] = [
         id: 'hf',
         name: 'Gucci ',
         likes: 0,
-        images: [''],
+        images: ['https://images.unsplash.com/photo-1731589802397-6a1088d63630?w=200&h=260&fit=crop&auto=format'],
         price: 0,
         createdAt: '',
         description: 'fsdac',
@@ -162,7 +162,7 @@ const data: Users[] = [
         id: 'hf',
         name: 'Gucci ',
         likes: 0,
-        images: [''],
+        images: ['https://images.unsplash.com/photo-1603189343302-e603f7add05a?w=200&h=260&fit=crop&auto=format'],
         price: 0,
         createdAt: '',
         description: 'fsdac',
@@ -195,7 +195,7 @@ const data: Users[] = [
         id: 'hf',
         name: 'Gucci ',
         likes: 0,
-        images: [''],
+        images: ['https://images.unsplash.com/photo-1603189343302-e603f7add05a?w=200&h=260&fit=crop&auto=format'],
         price: 0,
         createdAt: '',
         description: 'fsdac',
@@ -231,7 +231,7 @@ const data: Users[] = [
         id: 'hf',
         name: 'Gucci ',
         likes: 0,
-        images: [''],
+        images: ['https://images.unsplash.com/photo-1603189343302-e603f7add05a?w=200&h=260&fit=crop&auto=format'],
         price: 0,
         createdAt: '',
         description: 'fsdac',
