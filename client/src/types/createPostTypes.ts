@@ -11,7 +11,7 @@ export type Category =
 export type Size = 'XS' | 'S' | 'M' | 'L' | 'XL' | 'XXL'
 
 export interface SizeStock {
-  size: Size
+  size: Size 
   quantity: number
 }
 

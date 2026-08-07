@@ -44,16 +44,21 @@ const outfit = {
 interface OutfitCardProps {
   data: ProductType;
   currentUser: Users;
+  inCart: boolean
+  addToCart: (product: ProductType) => void;
+  removeFromCart: (product: ProductType) => void
 }
 
-export default function PostCard({ data, currentUser }: OutfitCardProps) {
+export default function PostCard({ data, currentUser, inCart, addToCart, removeFromCart }: OutfitCardProps) {
   const [liked, setLiked] = useState(false);
   const [saved, setSaved] = useState(false);
   const [likeCount, setLikeCount] = useState(outfit.likes);
-  const [bought, setBought] = useState(false);
+  const [bought, setBought] = useState<boolean>(inCart);
   const [showItems, setShowItems] = useState(false);
   const [editPost, setEditPost] = useState(false);
   const navigate = useNavigate()
+
+
 
   // Tracks the currently visible image
   const [currentImage, setCurrentImage] = useState(0);
@@ -444,12 +449,20 @@ export default function PostCard({ data, currentUser }: OutfitCardProps) {
             </p>
 
             <p className="text-lg font-semibold text-white leading-tight">
-              ${data.price}
+              ${data.type === 'outfits' ? data.totalPrice : data.price}
             </p>
           </div>
 
           <button
-            onClick={() => setBought((b) => !b)}
+            onClick={() => {
+              if(inCart) {
+                removeFromCart(data)
+                setBought(false)
+              } else {
+                addToCart(data)
+                setBought(true)
+              }
+            }}
             className={`flex items-center gap-2 text-sm font-semibold px-4 py-2 rounded-xl transition-all duration-200 active:scale-95 shrink-0 ${
               bought
                 ? "bg-success text-successText"

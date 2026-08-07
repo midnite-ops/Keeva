@@ -1,50 +1,95 @@
 import { createContext, useContext, useState } from "react";
+import type { ProductType } from "../types/productTypes";
+
+type Cart =
+  | {
+      type: "product";
+      id: string;
+      selections: { size: string; quantity: number }[];
+    }
+  | {
+      type: "outfits";
+      id: string;
+      taggedProductIds: {
+        productId: string;
+        selections: { size: string; quantity: number }[];
+      }[];
+    };
 
 type CartContextType = {
-    userId: string
-    productId: string
-    addToCart: (productId:string) => void
-    removeFromCart: (productId:string) => void
+  userId: string;
+  productId: string;
+  addToCart: (product: ProductType) => void;
+  removeFromCart: (product: ProductType) => void;
+  updateQuantity: (productId: string, size: string, quantity: number) => void;
+  updateSize: (productId: string, oldSize: string, newSize: string) => void;
+  cart: Cart[];
+};
 
-}
+const CartContext = createContext<CartContextType | null>(null);
 
-const CartContext = createContext<CartContextType | null>(null)
+export function CartProvider({ children }: { children: React.ReactNode }) {
+  const userId = "";
+  const productId = "";
 
-export function CartProvider({children}: {children: React.ReactNode}){
-    const userId = ''
-    const productId =''
-    const [cart, setCart] = useState<string[]>(() => {
-        return JSON.parse(localStorage.getItem('cart') || '[]')
-    })
-    console.log(cart)
-    
+  const [cart, setCart] = useState<Cart[]>(() => {
+    return JSON.parse(localStorage.getItem("cart") || "[]");
+  });
+  console.log(cart);
 
-    const addToCart = (productId:string) => {
-        setCart((prev) => {
-            const updatedCart = [...prev, productId]
+  const addToCart = (product: ProductType) => {
+    setCart((prev) => {
+      let newCart: Cart[];
+      if (product.type === "product") {
+        newCart = [
+          ...prev,
+          {
+            type: "product",
+            id: product.id,
+            selections: [{ size: "M", quantity: 1 }],
+          },
+        ];
+      } else {
+        newCart = [
+          ...prev,
+          {
+            type: "outfits",
+            id: product.id,
+            taggedProductIds: [
+              {
+                productId: product.id,
+                selections: [{ size: "M", quantity: 1 }],
+              },
+            ],
+          },
+        ];
+      }
 
-            localStorage.setItem('cart', JSON.stringify(updatedCart))
+      localStorage.setItem("cart", JSON.stringify(newCart));
 
-            return updatedCart
-        })
-    }
+      return newCart;
+    });
+  };
 
-    const removeFromCart = (productId:string) => {
-        setCart((prev) => {
-            const updatedCart = prev.filter((item) => item !== productId)
+  const removeFromCart = (product: ProductType) => {
+    setCart((prev) => {
+      const newCart = prev.filter((item) => item.id !== product.id);
 
-            localStorage.setItem('cart', JSON.stringify(updatedCart))
+      localStorage.setItem("cart", JSON.stringify(newCart));
 
-            return updatedCart
-        })
-            
-    }
+      return newCart;
+    });
+  };
 
-    return(
-        <CartContext.Provider value={{userId, productId, addToCart, removeFromCart}}>
-            {children}
-        </CartContext.Provider>
-    )
+  
+
+  return (
+    <CartContext.Provider
+      value={{ userId, productId, addToCart, removeFromCart, cart, updateQuantity: () => {}, updateSize: () => {} }}
+    >
+      {children}
+    </CartContext.Provider>
+  );
 }
 
 export function useCart() {
@@ -56,4 +101,3 @@ export function useCart() {
 
   return context;
 }
-

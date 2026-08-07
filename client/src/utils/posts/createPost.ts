@@ -43,7 +43,7 @@ export const createPost = async (
     id: crypto.randomUUID(),
     name: form.name,
     description: form.description,
-    price: Number(form.price),
+    totalPrice: Number(form.price),
     images: imageUrl,
     creatorId: userId,
     taggedProducts: form.taggedProducts ?? [],

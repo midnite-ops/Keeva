@@ -3,45 +3,45 @@ import { MapPin, Tag, ShoppingBag } from "lucide-react";
 import type { Outfits, Products } from "../../../types/productTypes";
 import { formatCount } from "../../../utils/formatCount";
 
-type Status =
-  | "placed"
-  | "accepted"
-  | "shipped"
-  | "delivered"
-  | "cancelled";
+// type Status =
+//   | "placed"
+//   | "accepted"
+//   | "shipped"
+//   | "delivered"
+//   | "cancelled";
 
-type OrderNotification = {
-  id: string;
-  type: "order";
-  productName: string;
-  price: string;
-  status: Status;
-  time: string;
-  read: boolean;
-};
+// type OrderNotification = {
+//   id: string;
+//   type: "order";
+//   productName: string;
+//   price: string;
+//   status: Status;
+//   time: string;
+//   read: boolean;
+// };
 
-type TrendingNotification = {
-  id: string;
-  type: "trending";
-  productName: string;
-  saves: number;
-  time: string;
-  read: boolean;
-};
+// type TrendingNotification = {
+//   id: string;
+//   type: "trending";
+//   productName: string;
+//   saves: number;
+//   time: string;
+//   read: boolean;
+// };
 
-type RestockNotification = {
-  id: string;
-  type: "restock";
-  productName: string;
-  size: string;
-  time: string;
-  read: boolean;
-};
+// type RestockNotification = {
+//   id: string;
+//   type: "restock";
+//   productName: string;
+//   size: string;
+//   time: string;
+//   read: boolean;
+// };
 
-type Notification =
-  | OrderNotification
-  | TrendingNotification
-  | RestockNotification;
+// type Notification =
+//   | OrderNotification
+//   | TrendingNotification
+//   | RestockNotification;
 
 interface AccountProfileProps {
   id: string;

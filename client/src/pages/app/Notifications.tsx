@@ -107,7 +107,7 @@ const Notifications = () => {
                       Product trending
                     </h3>
 
-                    <p className="w-11/12 leading-7">
+                    <p className="w-11/12 lg:w-full leading-7">
                         {item.productName} reached {item.saves} saves
                     </p>
                   </div>
@@ -128,7 +128,7 @@ const Notifications = () => {
                       Restock reminder
                     </h3>
 
-                    <p className="w-11/12 leading-7">
+                    <p className="w-11/12 lg:w-full leading-7">
                       {item.productName} - Size {item.size} is out of stock
                     </p>
                   </div>
@@ -149,7 +149,7 @@ const Notifications = () => {
                       New Order
                     </h3>
 
-                    <p className="w-11/12 leading-7">
+                    <p className="w-11/12 lg:w-full leading-7">
                       {item.id} - {item.productName} º ${item.price} 
                     </p>
                   </div>

@@ -28,7 +28,7 @@ const data: Users[] = [
         creatorId: '',
         type: 'outfits',
         taggedProducts: [],
-        price: 0,
+        totalPrice: 0,
         likes:0,
         id: '',
         createdAt:'s'
@@ -64,7 +64,7 @@ const data: Users[] = [
         creatorId: '',
         type: 'outfits',
         taggedProducts: [],
-        price: 0,
+        totalPrice: 0,
         likes:0,
         id: '',
         createdAt:'s'
@@ -96,7 +96,7 @@ const data: Users[] = [
         name: 'Gucci ',
         likes: 0,
         images: ['https://images.unsplash.com/photo-1731589802397-6a1088d63630?w=200&h=260&fit=crop&auto=format'],
-        price: 0,
+        totalPrice: 0,
         createdAt: '',
         description: 'fsdac',
         creatorId: '',
