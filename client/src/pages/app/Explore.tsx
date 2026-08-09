@@ -180,7 +180,7 @@ export default function Explore() {
                         id={item.id}
                         creatorId={item.creatorId}
                         productImage={item.images}
-                        price={item.price}
+                        price={item.totalPrice}
                         likes={item.likes}
                         username={creator?.username}
                         profilePic={creator?.profilePic!}

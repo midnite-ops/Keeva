@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import {
   ShoppingBag,
   Home,
@@ -14,6 +14,7 @@ import type { Users } from "../../types/userTypes";
 
 const SideBar = () => {
   const [activeLink, setActiveLink] = useState(window.location.pathname);
+  const navigate = useNavigate()
   const users = getStorage<Users>("users");
   const creators = users.filter((item) => item.role === "creator");
   const currentUserId = localStorage.getItem("currentUserId");
@@ -103,7 +104,7 @@ const SideBar = () => {
       </div>
 
       <div className="flex-1 items-end flex">
-        <div className="flex gap-2 items-center border-t border-subtitleText/25 w-full pt-5">
+        <div className="flex gap-2 items-center border-t border-subtitleText/25 w-full pt-5 cursor-pointer" onClick={() => navigate('/app/account')}>
           <div className="size-8 ">
             <img
               src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=80&h=80&fit=crop&auto=format"
@@ -111,7 +112,7 @@ const SideBar = () => {
               className="rounded-full"
             />
           </div>
-          <h4 className="text-sm text-foreground font-semibold cursor-pointer">
+          <h4 className="text-sm text-foreground font-semibold ">
             Account
           </h4>
         </div>

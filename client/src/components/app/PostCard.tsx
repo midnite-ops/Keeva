@@ -16,42 +16,26 @@ import { formatCount } from "../../utils/formatCount";
 import type { ProductType } from "../../types/productTypes";
 import { findUser } from "../../utils/user/findUser";
 import type { Users } from "../../types/userTypes";
+import { useNavigate } from "react-router-dom";
 
-const outfit = {
-  id: "1",
-  user: {
-    name: "Sofia Marlowe",
-    handle: "@sofiawears",
-    avatar:
-      "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=80&h=80&fit=crop&auto=format",
-    verified: true,
-  },
-  image:
-    "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=600&h=750&fit=crop&auto=format",
-  caption: "Sunday market energy. Linen everything, always. 🌿",
-  tags: ["#linenlook", "#slowfashion", "#ootd", "#sustainablestyle"],
-  items: [
-    { name: "Linen Wide-Leg Trousers", brand: "& Other Stories", price: 89 },
-    { name: "Oversized Linen Shirt", brand: "Totême", price: 210 },
-    { name: "Woven Leather Mules", brand: "A.P.C.", price: 295 },
-  ],
-  likes: 4812,
-  comments: 137,
-  time: "2h ago",
-};
 
 interface OutfitCardProps {
   data: ProductType;
   currentUser: Users;
+  inCart: boolean
+  addToCart: (product: ProductType) => void;
+  removeFromCart: (product: ProductType) => void
 }
 
-export default function PostCard({ data, currentUser }: OutfitCardProps) {
+export default function PostCard({ data, currentUser, inCart, addToCart, removeFromCart }: OutfitCardProps) {
   const [liked, setLiked] = useState(false);
   const [saved, setSaved] = useState(false);
-  const [likeCount, setLikeCount] = useState(outfit.likes);
-  const [bought, setBought] = useState(false);
+  const [likeCount, setLikeCount] = useState(data.likes);
+  const [bought, setBought] = useState<boolean>(inCart);
   const [showItems, setShowItems] = useState(false);
   const [editPost, setEditPost] = useState(false);
+  const navigate = useNavigate()
+
 
   // Tracks the currently visible image
   const [currentImage, setCurrentImage] = useState(0);
@@ -125,7 +109,7 @@ export default function PostCard({ data, currentUser }: OutfitCardProps) {
       >
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-3">
-          <div className="flex items-center gap-2.5">
+          <div className="flex items-center gap-2.5" onClick={() => navigate(`/app/user/account/${user!.id}`)}>
             <div className="relative">
               <div
                 className="absolute rounded-full"
@@ -151,7 +135,7 @@ export default function PostCard({ data, currentUser }: OutfitCardProps) {
             <div className="cursor-pointer">
               <div className="flex items-center gap-1">
                 <span className="text-sm font-semibold text-gray-900 leading-none">
-                  {user?.username}
+                  {user?.name}
                 </span>
 
                 {true && (
@@ -281,7 +265,7 @@ export default function PostCard({ data, currentUser }: OutfitCardProps) {
               backdropFilter: "blur(4px)",
             }}
           >
-            {outfit.time}
+            {data.createdAt}
           </span>
 
           {/* Items pill on image */}
@@ -368,7 +352,7 @@ export default function PostCard({ data, currentUser }: OutfitCardProps) {
                   minWidth: "2.5rem",
                 }}
               >
-                {`${formatCount(likeCount)}k`}
+                {`${formatCount(likeCount)}`}
               </span>
             </button>
 
@@ -418,13 +402,6 @@ export default function PostCard({ data, currentUser }: OutfitCardProps) {
           <p className="text-xs text-subtitleText font-semibold my-1">
             {data.description}
           </p>
-
-          <p
-            className="text-xs mt-1"
-            style={{ color: "#7c72c8" }}
-          >
-            {outfit.tags.join(" ")}
-          </p>
         </div>
 
         {/* Buy the Full Look bar */}
@@ -442,12 +419,20 @@ export default function PostCard({ data, currentUser }: OutfitCardProps) {
             </p>
 
             <p className="text-lg font-semibold text-white leading-tight">
-              ${data.price}
+              ${data.type === 'outfits' ? data.totalPrice : data.price}
             </p>
           </div>
 
           <button
-            onClick={() => setBought((b) => !b)}
+            onClick={() => {
+              if(inCart) {
+                removeFromCart(data)
+                setBought(false)
+              } else {
+                addToCart(data)
+                setBought(true)
+              }
+            }}
             className={`flex items-center gap-2 text-sm font-semibold px-4 py-2 rounded-xl transition-all duration-200 active:scale-95 shrink-0 ${
               bought
                 ? "bg-success text-successText"

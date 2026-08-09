@@ -16,6 +16,10 @@ import Explore from "./pages/app/Explore.tsx";
 import CreatePost from "./pages/app/CreatePost.tsx";
 import { CartProvider } from "./context/CartContext.tsx";
 import ProtectedRoute from "./ProtectedRoute.tsx";
+import Notifications from "./pages/app/Notifications.tsx"
+import Account from "./pages/app/Account.tsx";
+import FindUser from "./components/app/account/FindUser.tsx";
+import Cart from "./pages/app/CartFlow.tsx";
 // import HomePage from "./pages/HomePage.tsx";
 
 const App = () => (
@@ -37,8 +41,12 @@ const App = () => (
           <Route element={<ProtectedRoute />}>
             <Route element={<AppLayout />}>
               <Route path="/app/home" element={<AppHome />} />
-              <Route path="app/explore" element={<Explore />} />
-              <Route path="app/create-post" element={<CreatePost />} />
+              <Route path="/app/explore" element={<Explore />} />
+              <Route path="/app/create-post" element={<CreatePost />} />
+              <Route path="/app/notifications" element={<Notifications />}/>
+              <Route path="/app/user/account/:id" element={<FindUser />}/>
+              <Route path="/app/account" element={<Account />}/>
+              <Route path="/app/cart" element={<Cart/>}/>
             </Route>
           </Route>
         </Routes>

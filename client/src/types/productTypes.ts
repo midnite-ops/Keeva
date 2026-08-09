@@ -5,7 +5,6 @@ interface BaseProducts {
   name:string
   likes: number
   images: string[]
-  price: number
   createdAt: string
   description: string
 }
@@ -13,6 +12,7 @@ interface BaseProducts {
 export interface Outfits extends BaseProducts {
   creatorId: string;
   taggedProducts: Products[];
+  totalPrice: number
   type: 'outfits';
 }
 
@@ -21,6 +21,7 @@ export interface Products extends BaseProducts {
   category: string;
   stock: SizeStock[];
   type: 'product';
+  price: number
 }
 
 export type ProductType = Outfits | Products

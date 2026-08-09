@@ -12,7 +12,7 @@ const data: Outfits[] = [
     taggedProducts: [],
     likes: 4812,
     type: "outfits",
-    price: 0,
+    totalPrice: 0,
     createdAt: '02-05-2026'
   },
 ];

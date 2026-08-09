@@ -3,20 +3,22 @@ import PostCard from "../../components/app/PostCard";
 import { getStorage } from "../../utils/localStorage/initializeStorage";
 import type { Outfits, Products, ProductType } from "../../types/productTypes";
 import { getCurrentUser } from "../../utils/user/getCurrentUser";
+import { useCart } from "../../context/CartContext";
 
 
 
 const AppHome = () => {
   const outfits = getStorage<Outfits>('outfits')
   const products = getStorage<Products>('products')
+  const { cart, addToCart, removeFromCart } = useCart()
+
 
   const posts:ProductType[] = [...outfits, ...products]
-  console.log(posts)
  
   const feedFilter = ["For You", "Trending", "Following", "New", "Brands"];
   const [currentFeed, setCurrentFeed] = useState("For You");
   return (
-    <main className=" text-white h-screen overflow-y-hidden ">
+    <main className=" text-white h-full ">
       <section className=" h-screen flex  gap-6 w-full ">
         <div className="relative overflow-hidden h-full flex-1 flex md:block justify-center">
           <div className="absolute pb-5 w-full top-0 pt-4 ">
@@ -32,9 +34,9 @@ const AppHome = () => {
             </ul>
           </div>
 
-          <div className="overflow-y-scroll w-full flex gap-10 md:gap-10 flex-col no-scrollbar h-11/12 pb-70 md:pb-40 mt-15  md:mt-10">
+          <div className="overflow-y-scroll h-full w-full flex gap-10 md:gap-10 flex-col no-scrollbar pb-60 md:pb-40 mt-15  md:mt-10">
             {posts.map((item) => (
-              <PostCard key={item.id} data={item} currentUser = {getCurrentUser()!}/>
+              <PostCard key={item.id} data={item} currentUser = {getCurrentUser()!} inCart={cart.some((cartItem) => cartItem.id === item.id)} addToCart={addToCart} removeFromCart={removeFromCart}/>
             ))}
           </div>
         </div>

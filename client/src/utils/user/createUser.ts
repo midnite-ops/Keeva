@@ -34,6 +34,8 @@ export const createUser = ({
         location: "",
         type: "user",
         role: "customer",
+        following: 0,
+        bio: ''
       };
       break;
 
@@ -52,14 +54,8 @@ export const createUser = ({
         role: "creator",
         followers: 0,
         likes: 0,
-        outfits: [
-          {
-            outfitImages: [],
-            outfitName: "",
-            outfitSizes: [],
-            outfitStock: 0,
-          },
-        ],
+        outfits: [],
+        bio:''
       };
       break;
 
@@ -78,14 +74,8 @@ export const createUser = ({
         role: "brand",
         followers: 0,
         likes: 0,
-        products: [
-          {
-            productName: "",
-            productStock: 0,
-            productImages: [],
-            productSizes: [],
-          },
-        ],
+        products: [],
+        bio:''
       };
       break;
 

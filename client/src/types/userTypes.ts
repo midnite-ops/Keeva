@@ -1,3 +1,5 @@
+import type { Outfits, Products } from "./productTypes";
+
 export interface BaseUser {
   id: string;
   name: string;
@@ -9,6 +11,7 @@ export interface BaseUser {
   type: 'user';
   password?: string
   email?: string
+  bio:string | undefined
 }
 
 interface PublicProfile extends BaseUser{
@@ -18,30 +21,17 @@ interface PublicProfile extends BaseUser{
 
 export interface Creator extends PublicProfile {
   role: 'creator',
-  outfits: [
-    {
-      outfitName: string,
-      outfitStock: number,
-      outfitImages: string[],
-      outfitSizes: string[]
-    }
-  ]
+  outfits: Outfits[]
 }
 
 export interface Brand extends PublicProfile {
   role: 'brand'
-  products: [
-    {
-      productName: string,
-      productStock: number,
-      productImages: string[],
-      productSizes: string[]
-    }
-  ]
+  products: Products[]
 }
 
 export interface Customer extends BaseUser{
     role: 'customer'
+    following: number
 }
 
 export type Users = Creator | Brand | Customer
