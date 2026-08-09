@@ -6,7 +6,6 @@ import {
   Plus,
   Trash2,
 } from "lucide-react";
-import type { CartItem } from "../../../types/cartTypes";
 import ProductDetails from "../../../components/app/cart/ProductDetails";
 import OutfitDetails from "../../../components/app/cart/OutiftDetails";
 import type { ProductType } from "../../../types/productTypes";

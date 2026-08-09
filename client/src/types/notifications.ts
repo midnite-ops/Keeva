@@ -26,10 +26,10 @@ type RestockNotification = {
   read: boolean;
 };
 
-export type Notifications = {
+export type NotificationTypes = {
   orders: OrderNotification[];
   trending: TrendingNotification[];
   restock: RestockNotification[];
 };
 
-type Status = "placed" | "accepted" | "shipped" | "delivered" | "cancelled";
+// type Status = "placed" | "accepted" | "shipped" | "delivered" | "cancelled";

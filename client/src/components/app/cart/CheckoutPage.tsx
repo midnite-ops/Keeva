@@ -71,6 +71,7 @@ export default function CheckoutPage({
         ? 35
         : shipping;
   const grandTotal = subtotal + deliveryFee + tax;
+  total = grandTotal
 
   return (
     <div className="h-fit pb-25 md:pb-10">

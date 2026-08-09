@@ -2,6 +2,7 @@ import { Tag, Heart } from "lucide-react";
 import { Bookmark } from "lucide-react";
 import { useState } from "react";
 import { formatCount } from "../../utils/formatCount";
+import type { Outfits, Products } from "../../types/productTypes";
 
 interface ProfileCardProps {
   id: string;
@@ -12,22 +13,8 @@ interface ProfileCardProps {
   followers: number;
   role: "creator" | "brand";
   coverPhoto: string[];
-  outfits?: [
-    {
-      outfitName: string;
-      outfitStock: number;
-      outfitImages: string[];
-      outfitSizes: string[];
-    },
-  ];
-  products?: [
-    {
-      productName: string;
-      productStock: number;
-      productImages: string[];
-      productSizes: string[];
-    },
-  ];
+  outfits?: Outfits[];
+  products?: Products[];
 }
 
 interface ProductCardProps {
