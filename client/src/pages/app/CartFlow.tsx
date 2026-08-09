@@ -1,13 +1,11 @@
 import { useState } from "react";
-import type { Page,} from "../../shared/types";
+import type { Page } from "../../types/cartTypes";
 import CartPage from "../../components/app/cart/CartPage";
 import { findProduct } from "../../utils/findProduct";
 import { useCart } from "../../context/CartContext";
 import { saveStorage } from "../../utils/localStorage/initializeStorage";
 import CheckoutPage from "../../components/app/cart/CheckoutPage";
 // import ConfirmationPage from "./confirmation/ConfirmationPage";
-
-
 
 export default function App() {
   const [page, setPage] = useState<Page>("cart");
@@ -31,36 +29,38 @@ export default function App() {
     setCartItems((c) =>
       c.map((i) =>
         i.type === "product" && i.id === id
-          ? { ...i ,quantity: Math.max(1, i.stock.reduce((acc, s) => acc + s.quantity, 0) + delta) }
-          : i
-          
-      )
+          ? {
+              ...i,
+              quantity: Math.max(
+                1,
+                i.stock.reduce((acc, s) => acc + s.quantity, 0) + delta,
+              ),
+            }
+          : i,
+      ),
     );
-    
+
     const newCart = cartItems.map((item) => {
-      if(item.type === 'product'){
-        return(
-         {id:item.id, sizes: item.stock}
-      )
+      if (item.type === "product") {
+        return { id: item.id, sizes: item.stock };
       }
-     
-  })
-    saveStorage('cart', newCart);
-    console.log(newCart)
+    });
+    saveStorage("cart", newCart);
+    console.log(newCart);
   }
 
   function updateSize(id: string, size: string) {
     setCartItems((c) =>
       c.map((i) =>
-        i.type === "product" && i.id === id ? { ...i, selections: {size, quantity:1} } : i,
+        i.type === "product" && i.id === id
+          ? { ...i, selections: { size, quantity: 1 } }
+          : i,
       ),
     );
   }
 
   return (
-    <div
-      className="flex h-full overflow-y-auto "
-    >
+    <div className="flex h-full overflow-y-auto ">
       {page === "cart" && (
         <CartPage
           cartItems={cartItems}

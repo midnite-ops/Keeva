@@ -1,6 +1,6 @@
 import { ArrowLeft, CreditCard, MapPin, Package, Truck } from "lucide-react";
 import { useState } from "react";
-import type { CheckoutFormData } from "../../../shared/types";
+import type { CheckoutFormData } from "../../../types/cartTypes";
 import { inputCls, focusStyle, blurStyle } from "../../../shared/constants";
 import CheckoutSection from "./CheckoutSection";
 // import PaymentForm from "./PaymentForm";
@@ -337,7 +337,7 @@ export default function CheckoutPage({
 
             {/* Payment */}
             <CheckoutSection title="Payment" icon={<CreditCard size={15} />}>
-            <div></div>
+              <div></div>
               {/* <PaymentForm
                 cardNumber={form.cardNumber}
                 cardName={form.cardName}
