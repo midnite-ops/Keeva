@@ -78,7 +78,7 @@ export default function App() {
           cart={cart}
           subtotal={subtotal}
           shipping={shipping}
-          total={total}
+          // total={total}
           onBack={() => setPage("cart")}
           onConfirm={() => setPage("confirmation")}
         />
