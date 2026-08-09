@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import type { ProductType } from "../types/productTypes";
 
-type Cart =
+export type Cart =
   | {
       type: "product";
       id: string;

@@ -6,7 +6,7 @@ import BottomNav from "../components/app/BottomNav"
 const AppLayout = () => {
  
   return (
-    <div className="h-dvh  text-white overflow-hidden">
+    <div className="h-dvh  text-white overflow-hidden ">
 
       <Header />
 
@@ -15,7 +15,7 @@ const AppLayout = () => {
         <SideBar />
         <BottomNav />
 
-        <main className="flex-1  md:px-6 lg:pl-20 xl:pl-30 lg:pr-8 overflow-hidden">
+        <main className="min-w-0 min-h-0 flex-1 overflow-hidden md:px-6 lg:pl-20 xl:pl-30 lg:pr-8">
           <Outlet />
         </main>
 

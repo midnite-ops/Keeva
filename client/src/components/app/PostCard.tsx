@@ -18,28 +18,6 @@ import { findUser } from "../../utils/user/findUser";
 import type { Users } from "../../types/userTypes";
 import { useNavigate } from "react-router-dom";
 
-const outfit = {
-  id: "1",
-  user: {
-    name: "Sofia Marlowe",
-    handle: "@sofiawears",
-    avatar:
-      "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=80&h=80&fit=crop&auto=format",
-    verified: true,
-  },
-  image:
-    "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=600&h=750&fit=crop&auto=format",
-  caption: "Sunday market energy. Linen everything, always. 🌿",
-  tags: ["#linenlook", "#slowfashion", "#ootd", "#sustainablestyle"],
-  items: [
-    { name: "Linen Wide-Leg Trousers", brand: "& Other Stories", price: 89 },
-    { name: "Oversized Linen Shirt", brand: "Totême", price: 210 },
-    { name: "Woven Leather Mules", brand: "A.P.C.", price: 295 },
-  ],
-  likes: 4812,
-  comments: 137,
-  time: "2h ago",
-};
 
 interface OutfitCardProps {
   data: ProductType;
@@ -52,12 +30,11 @@ interface OutfitCardProps {
 export default function PostCard({ data, currentUser, inCart, addToCart, removeFromCart }: OutfitCardProps) {
   const [liked, setLiked] = useState(false);
   const [saved, setSaved] = useState(false);
-  const [likeCount, setLikeCount] = useState(outfit.likes);
+  const [likeCount, setLikeCount] = useState(data.likes);
   const [bought, setBought] = useState<boolean>(inCart);
   const [showItems, setShowItems] = useState(false);
   const [editPost, setEditPost] = useState(false);
   const navigate = useNavigate()
-
 
 
   // Tracks the currently visible image
@@ -288,7 +265,7 @@ export default function PostCard({ data, currentUser, inCart, addToCart, removeF
               backdropFilter: "blur(4px)",
             }}
           >
-            {outfit.time}
+            {data.createdAt}
           </span>
 
           {/* Items pill on image */}
@@ -375,7 +352,7 @@ export default function PostCard({ data, currentUser, inCart, addToCart, removeF
                   minWidth: "2.5rem",
                 }}
               >
-                {`${formatCount(likeCount)}k`}
+                {`${formatCount(likeCount)}`}
               </span>
             </button>
 
@@ -425,13 +402,6 @@ export default function PostCard({ data, currentUser, inCart, addToCart, removeF
           <p className="text-xs text-subtitleText font-semibold my-1">
             {data.description}
           </p>
-
-          <p
-            className="text-xs mt-1"
-            style={{ color: "#7c72c8" }}
-          >
-            {outfit.tags.join(" ")}
-          </p>
         </div>
 
         {/* Buy the Full Look bar */}
@@ -478,5 +448,3 @@ export default function PostCard({ data, currentUser, inCart, addToCart, removeF
     </div>
   );
 }
-
-//losene kanneh

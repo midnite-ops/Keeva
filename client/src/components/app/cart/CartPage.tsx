@@ -37,7 +37,7 @@ export default function CartPage({
  
 
   return (
-    <div className="h-full overflow-y-auto pb-20 w-full" style={{ scrollbarWidth: "none" }}>
+    <div className="w-full h-fit pb-25 md:pb-10">
       <div className="max-w-6xl mx-auto px-4 sm:px-8 py-8">
         <h1
           className="text-2xl font-semibold text-gray-900 mb-2"

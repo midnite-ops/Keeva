@@ -1,10 +1,10 @@
 import { useState } from "react";
-import type { Page, CartItem } from "../../shared/types";
+import type { Page,} from "../../shared/types";
 import CartPage from "../../components/app/cart/CartPage";
 import { findProduct } from "../../utils/findProduct";
 import { useCart } from "../../context/CartContext";
 import { saveStorage } from "../../utils/localStorage/initializeStorage";
-// import CheckoutPage from "./checkout/CheckoutPage";
+import CheckoutPage from "../../components/app/cart/CheckoutPage";
 // import ConfirmationPage from "./confirmation/ConfirmationPage";
 
 
@@ -59,8 +59,7 @@ export default function App() {
 
   return (
     <div
-      className="flex h-screen overflow-y-scroll"
-      style={{ fontFamily: "'DM Sans', sans-serif", background: "#f7f5f2" }}
+      className="flex h-full overflow-y-auto "
     >
       {page === "cart" && (
         <CartPage
@@ -74,7 +73,7 @@ export default function App() {
           onCheckout={() => setPage("checkout")}
         />
       )}
-      {/* {page === "checkout" && (
+      {page === "checkout" && (
         <CheckoutPage
           cart={cart}
           subtotal={subtotal}
@@ -84,50 +83,9 @@ export default function App() {
           onConfirm={() => setPage("confirmation")}
         />
       )}
-      {page === "confirmation" && (
+      {/* {page === "confirmation" && (
         <ConfirmationPage onBack={() => setPage("cart")} total={total} />
       )} */}
     </div>
   );
 }
-// import ProductCard from "../../components/app/cart/ProductCard";
-// import { useCart } from "../../context/CartContext";
-// import type { Outfits, Products } from "../../types/productTypes";
-// import { getStorage } from "../../utils/localStorage/initializeStorage";
-// import { useState } from "react";
-
-// const Cart = () => {
-//   const { cart, addToCart, removeFromCart } = useCart();
-//   const [page, setPage] = useState('cart');
-//   const products = getStorage<Products | Outfits>('products')
-//   return (
-//     <div className="text-foreground section-spacing overflow-y-scroll h-screen no-scrollbar">
-//       <h2>Your Cart</h2>
-//       <p className="text-subtitleText mt-2 font-bold text-sm " >{cart.length} items</p>
-//       <div className="flex">
-//         {cart.length === 0 ? (
-//           <p className="text-subtitleText mt-5 font-bold text-2xl " >Your cart is empty.</p>
-//         ) : (
-//           <>
-//             <div className="flex flex-col gap-4 mt-4 flex-2">
-//                 {cart.map((item) => {
-//                     const currentItem = products.find((product) => product.id === item);
-//                     if(currentItem?.type === 'product'){
-//                         return (
-//                             <ProductCard id={currentItem.id} name={currentItem.name} price={currentItem.price} images={currentItem.images} brandId={currentItem.brandId} type="product"/>
-//                         )
-//                     }else if(currentItem?.type === 'outfits'){
-//                         return  <ProductCard id={currentItem.id} name={currentItem.name} price={currentItem.price} images={currentItem.images} brandId={currentItem.creatorId} taggedProducts={currentItem.taggedProducts} type="outfits"/>
-//                     }
-//                 })}
-
-//             </div>
-//             <div className="flex-1"></div>
-//           </>
-//         )}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Cart;
