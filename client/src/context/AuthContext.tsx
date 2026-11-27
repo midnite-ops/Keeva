@@ -8,7 +8,7 @@ type SignupData = {
     name: string;
     email: string;
     password: string;
-    role: UserRole | null;
+    role: UserRole ;
 };
 type LoginData = {
     email: string;
